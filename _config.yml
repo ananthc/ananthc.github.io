@@ -32,7 +32,7 @@ staticman:
   allowedFields          : ['name', 'email', 'url', 'message','replying_to']
   branch                 : "master"
   commitMessage          : "New comment."
-  filename               : {@timestamp}-comment
+  filename               : -{@timestamp}comment
   format                 : "yml"
   moderation             : true
   path                   : "_data/comments/{options.slug}" # "/_data/comments/{options.slug}" (default)
