@@ -1,6 +1,5 @@
 comments:
-
-  allowedFields: ["name", "email", "message"]
+  allowedFields: ["name", "email", "message","url","replying_to"]
   allowedOrigins: ["localhost", "ananthc.github.io"]
   branch: master
   filename: comment-{@timestamp}
