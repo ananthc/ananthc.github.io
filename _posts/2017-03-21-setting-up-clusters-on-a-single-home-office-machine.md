@@ -5,6 +5,8 @@ header:
   image: /assets/images/patrick-lindenberg-191841.jpg
 ---
 
+{% include toc icon="gears" title="My Table of Contents" %}
+
 With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various engineering needs. Whether one would like to play around with out of the box setups or contribute to open source a strong need exists for installing and running these clusters on a local machine. 
 
 Taking Hadoop as an example, let us first consider the alternatives. 
