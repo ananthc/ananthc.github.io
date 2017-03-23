@@ -3,7 +3,6 @@ published: true
 comments: true
 layout: splash
 classes:
-  - landing
   - dark-theme
 header: null
 image: /assets/images/patrick-lindenberg-191841.jpg
