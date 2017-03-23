@@ -3,8 +3,14 @@ published: true
 comments: true
 header:
   image: /assets/images/patrick-lindenberg-191841.jpg
-tags: 'DSEGraph, Apex, Kudu'
-categories: Cloud
+tags:
+  - DSEGraph
+  - Apex
+  - Kudu
+  - juju
+categories:
+  - Cloud
+  - Frameworks
 ---
 
 {% include toc icon="gears" %}
