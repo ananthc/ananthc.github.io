@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "My experiments with data frameworks"
+title                    : "Experiments with data"
 title_separator          : "|"
 name                     : "Ananth Gundabattula"
 description              : "Ananth's blog"
