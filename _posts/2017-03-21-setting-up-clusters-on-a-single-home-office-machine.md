@@ -3,6 +3,8 @@ published: true
 comments: true
 header:
   image: /assets/images/patrick-lindenberg-191841.jpg
+tags: DSEGraph Apex Kudu
+categories: Cloud
 ---
 
 {% include toc icon="gears" %}
