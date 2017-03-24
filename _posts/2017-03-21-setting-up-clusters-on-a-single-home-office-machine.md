@@ -14,6 +14,7 @@ tags:
 categories:
   - Cloud
   - Frameworks
+permalink: date
 ---
 
 {% include toc icon="gears" %}
