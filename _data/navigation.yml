@@ -1,10 +1,10 @@
 # main links
 main:
-  - title: "Posts by year"
-    url: /year-archive
   - title: "Posts by category"
     url: /categories/
   - title: "Posts by tag"
     url: /tags/
-  - title: "Sitemap"
-    url: /sitemap/
+  - title: "Posts by year"
+    url: /year-archive
+  #- title: "Sitemap"
+  #  url: /sitemap/

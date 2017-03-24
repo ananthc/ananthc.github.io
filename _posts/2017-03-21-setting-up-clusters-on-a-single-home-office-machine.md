@@ -10,8 +10,7 @@ tags:
   - juju
   - Hadoop
 categories:
-  - Cloud
-  - Frameworks
+  - Misc
 permalink: setting-up-clusters-on-a-single-home-office-machine
 ---
 
