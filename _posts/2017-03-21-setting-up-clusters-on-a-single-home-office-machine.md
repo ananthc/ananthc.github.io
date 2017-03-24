@@ -8,9 +8,7 @@ tags:
   - Apex
   - Kudu
   - juju
-  - Streaming
-  - Graph
-  - Realtime
+  - Hadoop
 categories:
   - Cloud
   - Frameworks
