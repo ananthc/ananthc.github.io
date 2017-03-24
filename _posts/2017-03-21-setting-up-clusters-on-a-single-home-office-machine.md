@@ -28,6 +28,7 @@ Taking Hadoop as an example, let us first consider the alternatives.
 - Use AWS services
 - For some stacks, there exist alternatives. For example for Cloudera, this github [project](https://github.com/cloudera/clusterdock) and this [blog](https://blog.cloudera.com/blog/2016/08/multi-node-clusters-with-cloudera-quickstart-for-docker/) can be used as a good starting point.
 
+# Drawbacks of current approaches
 However there are drawbacks that prevent developers from using these approaches. Some reasons are
 
 - The host OS is not compatible with the installers. Many a times the host OS is on a newer kernel and the standard distributions are not yet compatible with the latest OS release. 
