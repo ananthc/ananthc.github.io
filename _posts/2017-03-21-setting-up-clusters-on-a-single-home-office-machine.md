@@ -14,7 +14,7 @@ tags:
 categories:
   - Cloud
   - Frameworks
-permalink: /setting-up-clusters-on-a-single-home-office-machine
+permalink: setting-up-clusters-on-a-single-home-office-machine
 ---
 
 {% include toc icon="gears" %}
