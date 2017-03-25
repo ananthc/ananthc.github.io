@@ -20,9 +20,10 @@ permalink: setting-up-clusters-on-a-single-home-office-machine
 With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple frameworks as a single stack. Not everyone has the luxury for access to these frameworks in a true distributed mode. 
 
 If we have access to for one powerful computer, there are ways we can achieve setting up of a true distributed cluster using some nice frameworks in the cloud and containers space. This post describes setup of such clusters on a single machine from three different use cases perspective. 
+- A situation wherein there is a dependency on the file systems support and the default file system offered is not suitable for the cluster. 
 - A situation wherein the host OS is not compatible with the distributed version. 
 - A situation wherein the framework needs a collection of nodes based on a peer to peer communication model and there is no mechanism to run such a cluster in a psuedo mode
-- A situation wherein there is a dependency on the file systems support and the default file system offered is not suitable for the cluster. 
+
 
 # Drawbacks of current approaches
 Taking Hadoop as an example, let us first consider the alternatives before we start setting a cluster up. 
