@@ -82,10 +82,10 @@ We are now ready to set up the private cloud.
 ~~~bash
 sudo lxd init
 ~~~
-In the command line wizard that ensues, the most important difference is that we choose NOT to create any storage - Line 1 below (as we have already configured one using lxc storage command above ) 
+In the command line wizard that ensues, the most important difference is that we choose **NOT** to create any storage - Line 1 below (as we have already configured one using lxc storage command above ) 
 ~~~bash
-Do you want to configure a new storage pool (yes/no) [default=yes]? no
-Would you like LXD to be available over the network (yes/no) [default=no]? yes
+Do you want to configure a new storage pool (yes/no)? no
+Would you like LXD to be available over the network (yes/no) [default=no]? no
 Address to bind LXD to (not including port) [default=all]:
 Port to bind LXD to [default=8443]:
 Trust password for new clients:
