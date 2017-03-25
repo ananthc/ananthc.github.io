@@ -12,6 +12,7 @@ tags:
 categories:
   - Misc
 permalink: setting-up-clusters-on-a-single-home-office-machine
+title: Private cloud on localhost
 ---
 
 {% include toc %}
