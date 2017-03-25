@@ -182,7 +182,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 327574EE02A818DD
 sudo apt-get install kudu
 sudo apt-get install kudu-master (on 4th node ) 
 sudo apt-get install kudu-tserver  (on the remaining 3 nodes )
-#finally configure /etc/kudu/conf/<config-fie> to use the mounted /data directory
+finally configure /etc/kudu/conf/<config-fie> to use the mounted /data directory
 ~~~
 
 # Hadoop - Case of incompatible OS 
