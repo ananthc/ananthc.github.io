@@ -185,4 +185,12 @@ sudo apt-get install kudu-tserver  (on the remaining 3 nodes )
 #finally configure /etc/kudu/conf/<config-fie> to use the mounted /data directory
 ~~~
 
-# 
+# Hadoop - Case of incompatible OS 
+
+We will try to install a Cloudera managed cluster on an additional 4 nodes. We will be using 3 nodes as data nodes and the 4th node to host a lot of the "non-compute" servers.  Since the images that are provisioned by default use xenial as the base image and Cloudera does not yet support xenial, we will have an issue. We will provision trusty based images on the cluster. The trick is to specify the image name while adding the new nodes that we are using to host the hadoop nodes. 
+
+~~~bash
+juju add-machine --series="trusty" -n 4
+~~~
+Since this image is a different one than the previously provisioned set of images, it might take a while to provision the trusty based image.
+
