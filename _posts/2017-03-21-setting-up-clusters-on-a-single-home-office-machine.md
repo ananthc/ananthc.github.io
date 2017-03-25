@@ -96,6 +96,9 @@ What should the new bridge be called [default=lxdbr0]?
 What IPv4 address should be used (CIDR subnet notation, “auto” or “none”) [default=auto]?
 What IPv6 address should be used (CIDR subnet notation, “auto” or “none”) [default=auto]?
 LXD has been successfully configured.
-
 ~~~
 
+We then choose to set some properties to get us started on settin up the cloud
+~~~bash
+sudo lxc network set lxdbr0 ipv6.address none
+~~~
