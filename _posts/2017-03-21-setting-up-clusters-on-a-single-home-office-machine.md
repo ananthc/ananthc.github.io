@@ -54,4 +54,9 @@ This post assumes the following:
 - You have atleast one drive partition which would be used to serve as the storage mount point for all LXD containers
 - You are running Ubuntu 16.10 or above with juju 2.1
 
+# Kudu - Case of non-compatible file system
+
+Let us first consider setting up a kudu cluster. Kudu comes with a need for the underlying file system to be handling the falloc system call which supports file system hole punching i.e. a portion of the file can be marked as unwanted and the associated storage released. However the default lxd cloud setup is configured to be run on zfs file system. In this section we try to set up and initiate the cloud on ext4 file system storage. 
+
+First we install all of the binaries required to set up our private cloud on the local host. 
 
