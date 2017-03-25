@@ -18,7 +18,7 @@ title: Setting up clusters on a single host
 {% include toc %}
 
 # The need
-With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple frameworks as a single stack. Not everyone has the luxury for access to these frameworks in a true distributed mode. 
+With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple frameworks as a single stack. Not everyone has the luxury for access to a collection of nodes to run these frameworks in a true distributed mode. 
 
 If we have access to for one powerful computer, there are ways we can achieve setting up of a true distributed cluster using some nice frameworks in the cloud and containers space. This post describes setup of such clusters on a single machine from three different use cases perspective. 
 - A situation wherein there is a dependency on the file systems support and the default file system offered is not suitable for the cluster. 
