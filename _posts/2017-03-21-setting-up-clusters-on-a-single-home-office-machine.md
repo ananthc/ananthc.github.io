@@ -193,3 +193,17 @@ juju add-machine --series="trusty" -n 4
 ~~~
 Since this image is a different one than the previously provisioned set of images, it might take a while to provision the trusty based image.
 
+We now mount directories on the host for the following mounts on each of the hadoop node. 
+-/opt ( As CDH installations stores a lot of the parcels in this location and easily consumes off the 9.8G size of the default image. )
+- / data ( To host the Namenode and related files ) 
+- /var/log ( To account for additional storage logs in case they accumulate a lot ) 
+
+The above mount points are configured using 
+
+~~~bash
+mkdir -p /storage/node5/data
+sudo chown -R 24001:24001  /storage/node5/data
+sudo lxc config device add juju-1dbdca-5 datamountname disk path=/data source=/storage/node5/data
+~~~
+
+
