@@ -12,7 +12,7 @@ tags:
 categories:
   - Misc
 permalink: setting-up-clusters-on-a-single-home-office-machine
-title: Setting up distributed systems frameworks on a single host
+title: Setting up clusters on a single host
 ---
 
 {% include toc %}
