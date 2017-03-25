@@ -118,8 +118,8 @@ We wait for a few minutes for all of the images to be provisioned into the local
 ~~~bash
 juju status
 ~~~
-After a while, the juju status command would show something along the following lines ()
-~~~
+After a while, the juju status command would show something along the following lines.
+~~~bash
 Model         Controller        Cloud/Region         Version
 dataplatform  empty-controller  localhost/localhost  2.1.1
 
@@ -128,8 +128,21 @@ App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
 Unit  Workload  Agent  Machine  Public address  Ports  Message
 
 Machine  State    DNS            Inst id         Series  AZ
-16       started  10.245.75.113  juju-1dbdca-16  xenial
-17       started  10.245.75.144  juju-1dbdca-17  xenial
-18       started  10.245.75.171  juju-1dbdca-18  xenial
-19       started  10.245.75.175  juju-1dbdca-19  xenial
+1       started  10.245.75.113  juju-1dbdca-16  xenial
+2       started  10.245.75.144  juju-1dbdca-17  xenial
+3       started  10.245.75.171  juju-1dbdca-18  xenial
+4       started  10.245.75.175  juju-1dbdca-19  xenial
 ~~~
+
+We can get a console access by using the "[juju ssh](https://jujucharms.com/docs/2.1/commands)" command. For example to get an ssh console on the machine 3, you would issue to get into the "node". 
+~~~bash
+juju ssh 3
+~~~
+
+Note that the following are automatically configured by using the juju add-machine command:
+- ssh user provisiong using the host login.
+- administrative web console with a user login credentials automatically configured for the host user login. ( Use juju gui command to get the auto configured password credentials that can be used in the administrative web console ) 
+- IP addresses configured ( No need to edit /etc/hosts )
+- Network connectivity between all the nodes in the same model
+
+We are now ready to install the kudu cluster on these 4 nodes.
