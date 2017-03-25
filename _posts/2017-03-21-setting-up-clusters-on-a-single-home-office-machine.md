@@ -55,10 +55,6 @@ This post assumes the following:
 - You have atleast one drive partition which would be used to serve as the storage mount point for all LXD containers
 - You are running Ubuntu 16.10 or above with juju 2.1
 
-# Kudu - Case of non-compatible file system
-
-Let us first consider setting up a kudu cluster. Kudu comes with a need for the underlying file system to be handling the falloc system call which supports file system hole punching i.e. a portion of the file can be marked as unwanted and the associated storage released. However the default lxd cloud setup is configured to be run on zfs file system. In this section we try to set up and initiate the cloud on ext4 file system storage. 
-
 First we install all of the binaries required to set up our private cloud on the local host. 
 
 ~~~bash
@@ -103,7 +99,17 @@ We then choose to set some properties to get us started on settin up the cloud
 sudo lxc network set lxdbr0 ipv6.address none
 ~~~
 
-Next we add a model. More information about a [model](https://jujucharms.com/docs/2.1/models) and [controller](https://jujucharms.com/docs/2.1/controllers) can be found here. Here we are naming our model as dataplatform and we are setting up all of our nodes in this model.
+Next we add a model. More information about a [model](https://jujucharms.com/docs/2.1/models) and [controller](https://jujucharms.com/docs/2.1/controllers) can be found on the juju documentation site. Here we are naming our model as dataplatform and we are setting up all of our "nodes" in this model.
 ~~~bash
 juju add-model dataplatform
+~~~
+
+# Kudu - Case of non-compatible file system
+
+Let us first consider setting up a kudu cluster. Kudu comes with a need for the underlying file system to be handling the falloc system call which supports file system hole punching i.e. a portion of the file can be marked as unwanted and the associated storage released. However the default lxd cloud setup is configured to be run on zfs file system. Since we configured our "private cloud" to be based of ext4, we are now ready to set up our kudu cluster. 
+
+We are setting up a 3 tablet server nodes and one master node as part of our cluster. Hence we will be adding 4 "nodes" to the dataplatform model. 
+
+~~~bash
+
 ~~~
