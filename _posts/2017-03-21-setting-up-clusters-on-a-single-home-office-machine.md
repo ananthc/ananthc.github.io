@@ -118,4 +118,18 @@ We wait for a few minutes for all of the images to be provisioned into the local
 ~~~bash
 juju status
 ~~~
-After a while, the juju status command would show something similar ( subject to your environment )
+After a while, the juju status command would show something along the following lines ()
+~~~
+Model         Controller        Cloud/Region         Version
+dataplatform  empty-controller  localhost/localhost  2.1.1
+
+App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
+
+Unit  Workload  Agent  Machine  Public address  Ports  Message
+
+Machine  State    DNS            Inst id         Series  AZ
+16       started  10.245.75.113  juju-1dbdca-16  xenial
+17       started  10.245.75.144  juju-1dbdca-17  xenial
+18       started  10.245.75.171  juju-1dbdca-18  xenial
+19       started  10.245.75.175  juju-1dbdca-19  xenial
+~~~
