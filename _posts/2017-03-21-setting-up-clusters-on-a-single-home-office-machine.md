@@ -201,9 +201,14 @@ We now mount directories on the host for the following mounts on each of the had
 The above mount points are configured using 
 
 ~~~bash
-mkdir -p /storage/node5/data
-sudo chown -R 24001:24001  /storage/node5/data
-sudo lxc config device add juju-1dbdca-5 datamountname disk path=/data source=/storage/node5/data
+mkdir -p /storage/node[x]/data
+sudo chown -R 24001:24001  /storage/node[x]/data
+sudo lxc config device add juju-1dbdca-x datamountname disk path=/data source=/storage/node[x]/data
 ~~~
 
+We now provision hadoop user that is required for the installation
+
+~~~bash
+
+~~~
 
