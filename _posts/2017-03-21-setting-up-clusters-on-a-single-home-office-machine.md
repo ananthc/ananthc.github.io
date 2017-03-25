@@ -94,7 +94,7 @@ What IPv6 address should be used (CIDR subnet notation, “auto” or “none”
 LXD has been successfully configured.
 ~~~
 
-We then choose to set some properties to get us started on settin up the cloud
+We then choose to set some properties to get us started on setting up the cloud
 ~~~bash
 sudo lxc network set lxdbr0 ipv6.address none
 ~~~
@@ -145,4 +145,24 @@ Note that the following are automatically configured by using the juju add-machi
 - IP addresses configured ( No need to edit /etc/hosts )
 - Network connectivity between all the nodes in the same model
 
-We are now ready to install the kudu cluster on these 4 nodes.
+We are now ready to install the kudu cluster on these 4 nodes. However there is a small optimization we would like to push in. Since we guess that there would be loads of data storage requirements for each of these nodes and the default image provisioned only has a capacity of 9.8G, we are going to add extra "disk space" to each of the 3 kudu tablet servers. The disks are going to be mounted on a host node directory as a mount point on the running container. These mount points are persisted on the images even after restarts. 
+
+First let us make a directory on the host that will be used as a mountpoint on each of the containers. Let us say the directories on the host are as follows : 
+
+~~~bash
+mkdir -p /storage/node1/data
+mkdir -p /storage/node2/data
+mkdir -p /storage/node3/data
+~~~
+
+We now have to ensure that the host directory permissions are compatible with the container permissions. For this we need to obtain the userid for the containers. To obtain the userid, simply list the user permissions on any of the containers mounted on /var/lib/lxd/storage-pools/lvmlxd/containers/
+~~~bash
+ls -alh /var/lib/lxd/storage-pools/lvmlxd/containers/
+~~~
+Take a note of the userid as we will be assigning the hosted directory permissions to this user. Let us say that the userid is 24001. We now set the permission of the host user directories for this user.
+
+~~~bash
+sudo chown -R 24001:24001  /storage/node1/data
+sudo chown -R 24001:24001  /storage/node2/data
+sudo chown -R 24001:24001  /storage/node3/data
+~~~
