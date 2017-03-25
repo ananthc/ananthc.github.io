@@ -32,7 +32,7 @@ Taking Hadoop as an example, let us first consider the alternatives before we st
 - For some hadoop distributions, there are alternatives. For example for Cloudera, this github [project](https://github.com/cloudera/clusterdock) and this [blog](https://blog.cloudera.com/blog/2016/08/multi-node-clusters-with-cloudera-quickstart-for-docker/) can be used as a good starting point.
 
 
-However there are drawbacks that prevent developers from using these approaches. Some reasons are
+However there are drawbacks that prevents us from using these approaches in a flexible way. Some reasons are
 
 - The host OS is not compatible with the installers. Many a times the host OS is on a newer kernel and the standard distributions are not yet compatible with the latest OS release. 
 - Psuedo mode does not help in all use cases. Example YARN applications like Apache [Apex](https://apex.apache.org/) that run on top of YARN require a true cluster for developers to monitor the progress of an application.
@@ -40,3 +40,7 @@ However there are drawbacks that prevent developers from using these approaches.
 - Containerized approaches do not catch up always with the release of the distribution. For example there are stacks which allow containerized versions of the stack but they are not always on the latest version
 - Of course Hadoop is just an example and many other distributed software like cassandra would ideally need a cluster of machines to be used as the hosts. Since it is a peer to peer model and requires common ports to be used across all instances of the peers, the scope of setting it up in distributed mode does not arise. 
 - AWS might be the solution but comes with a cost.
+
+# Juju - The enabler
+
+Ubuntu has a such cool framework that enabled automation of cloud setups using a framework called juju. 
