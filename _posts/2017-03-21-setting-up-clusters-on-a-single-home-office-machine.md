@@ -12,7 +12,7 @@ tags:
 categories:
   - Misc
 permalink: setting-up-clusters-on-a-single-home-office-machine
-title: Private cloud on localhost
+title: Setting up distributed systems frameworks on a single host
 ---
 
 {% include toc %}
@@ -73,4 +73,6 @@ We then add this storage to the "default" profile. The default profile is instal
 ~~~bash
 sudo lxc profile device add default root disk path=/ pool=lvmlxd
 ~~~
+We are now ready to set up the private cloud. 
+
 
