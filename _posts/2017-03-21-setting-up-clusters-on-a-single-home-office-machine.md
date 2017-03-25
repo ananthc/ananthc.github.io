@@ -43,4 +43,8 @@ However there are drawbacks that prevents us from using these approaches in a fl
 
 # Juju - The enabler
 
-Juju from canoonical is a service modelling and deployment tool. Juju coupled with "charms" makes setup of predefined stacks work like magic. We are not going to use charms in this post as It supports well known "clouds" like AWS, Google, Bare metal and even LXD. LXD provides for an interesting context for the use cases we are interested in. The following blog series by Stéphane Graber is a very good starting point to be educated. https://insights.ubuntu.com/2016/03/14/the-lxd-2-0-story-prologue/
+Juju from canoonical is a service modelling and deployment tool. Juju coupled with "charms" makes setup of avaialbe stacks in the charms repository work and run like a charm :) . We are not going to use charms in this post as the stacks we are trying to deploy are not avaialble as a charm. 
+
+Juju supports well known "clouds" like AWS, Google, Bare metal and even LXD. LXD provides for an interesting context for the use cases we are interested in. The following blog series by Stéphane Graber is a very good starting point to be educated on LXD images and containers:  https://insights.ubuntu.com/2016/03/14/the-lxd-2-0-story-prologue/. We are going to build upon this to solve our 3 use cases to set up a personalized cluster on a single host.
+
+
