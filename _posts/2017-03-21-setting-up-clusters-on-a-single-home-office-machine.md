@@ -128,10 +128,10 @@ App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
 Unit  Workload  Agent  Machine  Public address  Ports  Message
 
 Machine  State    DNS            Inst id         Series  AZ
-1       started  10.245.75.113  juju-1dbdca-16  xenial
-2       started  10.245.75.144  juju-1dbdca-17  xenial
-3       started  10.245.75.171  juju-1dbdca-18  xenial
-4       started  10.245.75.175  juju-1dbdca-19  xenial
+1       started  10.245.75.113  juju-1dbdca-1  xenial
+2       started  10.245.75.144  juju-1dbdca-2 xenial
+3       started  10.245.75.171  juju-1dbdca-3  xenial
+4       started  10.245.75.175  juju-1dbdca-4  xenial
 ~~~
 
 We can get a console access by using the "[juju ssh](https://jujucharms.com/docs/2.1/commands)" command. For example to get an ssh console on the machine 3, you would issue to get into the "node". 
@@ -165,4 +165,12 @@ Take a note of the userid as we will be assigning the hosted directory permissio
 sudo chown -R 24001:24001  /storage/node1/data
 sudo chown -R 24001:24001  /storage/node2/data
 sudo chown -R 24001:24001  /storage/node3/data
+~~~
+
+we now mount each of these directories as a direcotry on the container. For this we use the lxc config device add command. 
+
+~~~bash
+sudo lxc config device add juju-1dbdca-1 datamountname disk path=/data source=/storage/node1/data
+sudo lxc config device add juju-1dbdca-2 datamountname disk path=/data source=/storage/node2/data
+sudo lxc config device add juju-1dbdca-3 datamountname disk path=/data source=/storage/node3/data
 ~~~
