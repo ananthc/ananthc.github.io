@@ -111,5 +111,11 @@ Let us first consider setting up a kudu cluster. Kudu comes with a need for the 
 We are setting up a 3 tablet server nodes and one master node as part of our cluster. Hence we will be adding 4 "nodes" to the dataplatform model. 
 
 ~~~bash
-
+juju add-machine -n 4
 ~~~
+
+We wait for a few minutes for all of the images to be provisioned into the local cache. Use the following command to see the current status. 
+~~~bash
+juju status
+~~~
+After a while, the juju status command would show something similar ( subject to your environment )
