@@ -60,3 +60,6 @@ Let us first consider setting up a kudu cluster. Kudu comes with a need for the 
 
 First we install all of the binaries required to set up our private cloud on the local host. 
 
+~~~bash
+sudo apt-get install lvm2 thin-provisioning-tools lxd-client lxd juju
+~~~
