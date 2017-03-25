@@ -53,7 +53,7 @@ Juju supports well known "clouds" like AWS, Google, Bare metal and even LXD. LXD
 
 This post assumes the following:
 - You have atleast one drive partition which would be used to serve as the storage mount point for all LXD containers
-- You are running Ubuntu 16.10 or above with juju 2.1
+- You are running Ubuntu 16.10 or above
 
 First we install all of the binaries required to set up our private cloud on the local host. 
 
