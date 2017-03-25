@@ -4,7 +4,6 @@ comments: true
 header:
   image: /assets/images/patrick-lindenberg-191841.jpg
 tags:
-  - DSEGraph
   - Apex
   - Kudu
   - juju
