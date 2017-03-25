@@ -174,3 +174,10 @@ sudo lxc config device add juju-1dbdca-1 datamountname disk path=/data source=/s
 sudo lxc config device add juju-1dbdca-2 datamountname disk path=/data source=/storage/node2/data
 sudo lxc config device add juju-1dbdca-3 datamountname disk path=/data source=/storage/node3/data
 ~~~
+
+Install kudu as you would on a normal cluster of nodes. Assuming you are doing a package based install , the following is a cryptic install instructions.
+~~~bash
+Add cloudera repo as given [here](http://archive.cloudera.com/kudu/ubuntu/xenial/amd64/kudu/cloudera.list)
+sudo apt-get update
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 327574EE02A818DD
+~~~
