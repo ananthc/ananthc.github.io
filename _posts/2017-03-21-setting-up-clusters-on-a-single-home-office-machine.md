@@ -62,9 +62,14 @@ Let us first consider setting up a kudu cluster. Kudu comes with a need for the 
 First we install all of the binaries required to set up our private cloud on the local host. 
 
 ~~~bash
+sudo add-apt-repository -u ppa:juju/stable
+sudo apt-get update
 sudo apt-get install lvm2 thin-provisioning-tools lxd-client lxd juju
 ~~~
-
+In the next step, we make sure the current user trying to provision containers is added to the lxd group
+~~~bash
+newgrp lxd
+~~~
 In the next step we create a fresh volume that can be used as a ext4 filesystem based storage as opposed to the default zfs based storage. For this we use lxc storage command and use the spare partition that was mentioned as a requirement earlier. In the example below we are using hosting this lvm based storage partition on /dev/sdb1. 
 ~~~bash
 sudo lxc storage create lvmlxd lvm source=/dev/sdb1
@@ -74,5 +79,23 @@ We then add this storage to the "default" profile. The default profile is instal
 sudo lxc profile device add default root disk path=/ pool=lvmlxd
 ~~~
 We are now ready to set up the private cloud. 
+~~~bash
+sudo lxd init
+~~~
+In the command line wizard that ensues, the most important difference is that we choose NOT to create any storage ( as we have already configured one using lxc storage command above ) 
+~~~bash
+Do you want to configure a new storage pool (yes/no) [default=yes]? **no**
+Would you like LXD to be available over the network (yes/no) [default=no]? yes
+Address to bind LXD to (not including port) [default=all]:
+Port to bind LXD to [default=8443]:
+Trust password for new clients:
+Again:
+Would you like stale cached images to be updated automatically (yes/no) [default=yes]?
+Would you like to create a new network bridge (yes/no) [default=yes]?
+What should the new bridge be called [default=lxdbr0]?
+What IPv4 address should be used (CIDR subnet notation, “auto” or “none”) [default=auto]?
+What IPv6 address should be used (CIDR subnet notation, “auto” or “none”) [default=auto]?
+LXD has been successfully configured.
 
+~~~
 
