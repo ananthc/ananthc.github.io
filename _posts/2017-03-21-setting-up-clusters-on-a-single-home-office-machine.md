@@ -63,3 +63,13 @@ First we install all of the binaries required to set up our private cloud on the
 ~~~bash
 sudo apt-get install lvm2 thin-provisioning-tools lxd-client lxd juju
 ~~~
+
+In the next step we create a fresh volume that can be used as a ext4 filesystem based storage as opposed to the default zfs based storage. For this we use lxc storage command and use the spare partition that was mentioned as a requirement earlier. In the example below we are using hosting this lvm based storage partition on /dev/sdb1. 
+~~~bash
+sudo lxc storage create lvmlxd lvm source=/dev/sdb1
+~~~
+We then add this storage to the "default" profile. The default profile is installed automatically during the install process.
+~~~bash
+sudo lxc profile device add default root disk path=/ pool=lvmlxd
+~~~
+
