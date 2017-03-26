@@ -138,10 +138,12 @@ juju ssh 3
 ~~~
 
 Note that the following are automatically configured by using the juju add-machine command:
-- ssh user provisiong using the host login.
+- ssh user provisiong using the host login. The host 
 - administrative web console with a user login credentials automatically configured for the host user login. ( Use juju gui command to get the auto configured password credentials that can be used in the administrative web console ) 
 - IP addresses configured ( No need to edit /etc/hosts )
 - Network connectivity between all the nodes in the same model
+- Host node can ping and reach to any of the ports of the containers just provisioned.
+- File system access is available from the host to the target container from the following path: /var/lib/lxd/storage-pools/lvmlxd/containers/<container id>/rootfs ( Note that lvmlxd represents the name of the lvm that was used to create the storage pool for lxd while initializing it) 
 
 We are now ready to install the kudu cluster on these 4 nodes. However there is a small optimization we would like to push in. Since we guess that there would be loads of data storage requirements for each of these nodes and the default image provisioned only has a capacity of 9.8G, we are going to add extra "disk space" to each of the 3 kudu tablet servers. The disks are going to be mounted on a host node directory as a mount point on the running container. These mount points are persisted on the images even after restarts. 
 
@@ -184,6 +186,8 @@ sudo apt-get install kudu-tserver  (on the remaining 3 nodes )
 finally configure /etc/kudu/conf/<config-fie> to use the mounted /data directory
 ~~~
 
+Exit from the container shells.
+
 # Hadoop - Case of incompatible OS 
 
 We will try to install a Cloudera managed cluster on an additional 4 nodes. We will be using 3 nodes as data nodes and the 4th node to host a lot of the "non-compute" servers.  Since the images that are provisioned by default use xenial as the base image and Cloudera does not yet support xenial, we will have an issue. We will provision trusty based images on the cluster. The trick is to specify the image name while adding the new nodes that we are using to host the hadoop nodes. 
@@ -214,5 +218,17 @@ sudo useradd ananth
 sudo usermod -aG sudo ananth
 sudo mkdir -p /home/ananth
 sudo chown -R ananth:ananth /home/ananth
+~~~
+Exit from the container shells. 
 
+Next we try to generate the key pair that will be used to login to all of the cloudera managed containers during the install process. We generate this key pair for the user we added above.
+
+"juju ssh" to any one of the nodes (say node 5). 
+~~~bash
+juju ssh 5
+~~~
+Inside this container, run the following
+~~~bash
+sudo su ananth
+ssh-keygen -t rsa -b 2048
 ~~~
