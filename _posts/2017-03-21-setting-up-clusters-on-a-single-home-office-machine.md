@@ -221,7 +221,9 @@ sudo chown -R ananth:ananth /home/ananth
 ~~~
 Exit from the container shells. 
 
-Next we try to generate the key pair that will be used to login to all of the cloudera managed containers during the install process. We generate this key pair for the user we added above.
+Next we need to ensure that this user either has the same password across all containers or can be logged in remotely using the same private key. We shall be using the private key approach to show case the aspects of file copy from host to containers or vice versa. 
+
+We try to generate the key pair that will be used to login to all of the cloudera managed containers during the install process. We generate this key pair for the user we added above.
 
 "juju ssh" to any one of the nodes (say node 5). 
 ~~~bash
@@ -231,4 +233,14 @@ Inside this container, run the following
 ~~~bash
 sudo su ananth
 ssh-keygen -t rsa -b 2048
+touch ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+~~~
+
+We now distribute the keypair across all of the containers that represent the containers for the remaining nodes of the cluster. To complete this action, we copy the generated key files from the chosen node ( id 5 in our case above ) to the host machine and then push them to all of the remaining nodes. On the host machine, do the following from a directory where you would be managing the file copies. 
+
+~~~bash
+sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/id_rsa.pub .
+sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/id_rsa .
+sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/authorized_keys .
 ~~~
