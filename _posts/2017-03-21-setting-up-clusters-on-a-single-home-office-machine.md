@@ -41,7 +41,7 @@ However there are drawbacks that prevents us from using these approaches in a fl
 - Of course Hadoop is just an example and many other distributed software like cassandra would ideally need a cluster of machines to be used as the hosts. Since it is a peer to peer model and requires common ports to be used across all instances of the peers, the scope of setting it up in distributed mode does not arise. 
 - AWS might be the solution but comes with a cost.
 
-# Juju - The enabler
+# Juju and LXD - The enablers
 
 [Juju](https://www.ubuntu.com/cloud/juju) from canonical is a service modelling and deployment tool. Juju coupled with "[charms](https://jujucharms.com)" makes setup of available stacks ( referred to as juju charm) as simple as a few clicks . We are not going to use charms in this post as the stacks we are trying to deploy are not avaialble as a ready made charm. 
 
@@ -50,7 +50,7 @@ Juju supports well known "clouds" like AWS, Google, Bare metal and even LXD. LXD
 # Setting up the private cloud on localhost
 
 This post assumes the following:
-- You have atleast one drive partition which would be used to serve as the storage mount point for all LXD containers
+- You have atleast one drive partition which would be used to serve as the storage pool for all LXD containers
 - You are running Ubuntu 16.10 or above
 
 First we install all of the binaries required to set up our private cloud on the local host. 
