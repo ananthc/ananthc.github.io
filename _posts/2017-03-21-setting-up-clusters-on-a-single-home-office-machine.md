@@ -247,6 +247,8 @@ sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/authorized_keys .
 
 We now have the key pair and related files on the host. We will now push them to the remaining nodes. From the same directory on the host, issue the following commands to copy the files to the target folders in the remaining containers.
 
+First ensure that there is a folder called ".ssh" in each of the containers under the user ( ananth ) home directory.
+
 ~~~bash
 sudo lxc file push id_rsa juju-1dbdca-6/home/ananth/.ssh/
 sudo lxc file push id_rsa.pub juju-1dbdca-6/home/ananth/.ssh/
@@ -259,6 +261,5 @@ sudo lxc file push authorized_keys juju-1dbdca-7/home/ananth/.ssh/
 sudo lxc file push id_rsa juju-1dbdca-8/home/ananth/.ssh/
 sudo lxc file push id_rsa.pub juju-1dbdca-8/home/ananth/.ssh/
 sudo lxc file push authorized_keys juju-1dbdca-8/home/ananth/.ssh/
-
 
 ~~~
