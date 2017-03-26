@@ -273,3 +273,10 @@ sudo chmod 600 /home/ananth/.ssh/id_rsa
 sudo chmod 600 /home/ananth/.ssh/authorized_keys
 sudo chmod 744 /home/ananth/.ssh/id_rsa.pub
 ~~~
+
+The final step is to change the ownership of the id_rsa file that is copied onto the host. This is required only because the cloudera installation wizard asks for the copy of the private key file of the ananth user while installing the cluster and fails with a very very crpytic error if the private key does not have the correct permission model. 
+
+For this traverse to the directory on the host machine where we copied the key pair files and issue a chown & chmod to the id_rsa file. 
+
+Follow the instructions on the cloudera documentation website to install the cluster on containers 5 to 8. 
+
