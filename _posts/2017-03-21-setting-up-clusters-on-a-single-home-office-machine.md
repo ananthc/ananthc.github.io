@@ -173,7 +173,7 @@ sudo lxc config device add juju-1dbdca-2 datamountname disk path=/data source=/s
 sudo lxc config device add juju-1dbdca-3 datamountname disk path=/data source=/storage/node3/data
 ~~~
 
-Install kudu as you would on a normal cluster of nodes. Assuming you are doing a package based install , the following is a set of cryptic install instructions on each of the nodes
+Install kudu as you would on a normal cluster of nodes. Assuming you are doing a package based install , the following is a set of cryptic install instructions **on each of the nodes**. Use juju ssh <machine number> to each of the containers before executing the following. 
 ~~~bash
 Add cloudera repo as given http://archive.cloudera.com/kudu/ubuntu/xenial/amd64/kudu/cloudera.list in /etc/apt/sources.list.d/cloudera.list
 sudo apt-get update
@@ -193,12 +193,13 @@ juju add-machine --series="trusty" -n 4
 ~~~
 Since this image is a different one than the previously provisioned set of images, it might take a while to provision the trusty based image.
 
-We now mount directories on the host for the following mounts on each of the hadoop node. 
--/opt ( As CDH installations stores a lot of the parcels in this location and easily consumes off the 9.8G size of the default image. )
+We now mount directories on the host for the following mounts on each of the hadoop node.
+
+- /opt ( As CDH installations stores a lot of the parcels in this location and easily consumes off the 9.8G size of the default image. )
 - / data ( To host the Namenode and related files ) 
 - /var/log ( To account for additional storage logs in case they accumulate a lot ) 
 
-The above mount points are configured using 
+The above mount points are configured using the following snippets as explained earlier ( shown only for data folder mount point)
 
 ~~~bash
 mkdir -p /storage/node[x]/data
@@ -206,9 +207,12 @@ sudo chown -R 24001:24001  /storage/node[x]/data
 sudo lxc config device add juju-1dbdca-x datamountname disk path=/data source=/storage/node[x]/data
 ~~~
 
-We now provision hadoop user that is required for the installation
+We now provision hadoop user that is required for the installation. We execute the following **on each of the nodes.** Use juju ssh <machine number> to login to each container. 
 
 ~~~bash
+sudo useradd ananth
+sudo usermod -aG sudo ananth
+sudo mkdir -p /home/ananth
+sudo chown -R ananth:ananth /home/ananth
 
 ~~~
-
