@@ -237,10 +237,28 @@ touch ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ~~~
 
-We now distribute the keypair across all of the containers that represent the containers for the remaining nodes of the cluster. To complete this action, we copy the generated key files from the chosen node ( id 5 in our case above ) to the host machine and then push them to all of the remaining nodes. On the host machine, do the following from a directory where you would be managing the file copies. 
+We now distribute the keypair across all of the containers that represent the containers for the remaining nodes of the cluster. To complete this action, we copy the generated key files from the chosen node ( id 5 in our case above ) to the host machine and then push them to all of the remaining nodes. On the host machine, do the following from a directory where you would be managing the file copies. **Ensure you are not on the .ssh folder on the host** 
 
 ~~~bash
 sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/id_rsa.pub .
 sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/id_rsa .
 sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/authorized_keys .
+~~~
+
+We now have the key pair and related files on the host. We will now push them to the remaining nodes. From the same directory on the host, issue the following commands to copy the files to the target folders in the remaining containers.
+
+~~~bash
+sudo lxc file push id_rsa juju-1dbdca-6/home/ananth/.ssh/
+sudo lxc file push id_rsa.pub juju-1dbdca-6/home/ananth/.ssh/
+sudo lxc file push authorized_keys juju-1dbdca-6/home/ananth/.ssh/
+
+sudo lxc file push id_rsa juju-1dbdca-7/home/ananth/.ssh/
+sudo lxc file push id_rsa.pub juju-1dbdca-7/home/ananth/.ssh/
+sudo lxc file push authorized_keys juju-1dbdca-7/home/ananth/.ssh/
+
+sudo lxc file push id_rsa juju-1dbdca-8/home/ananth/.ssh/
+sudo lxc file push id_rsa.pub juju-1dbdca-8/home/ananth/.ssh/
+sudo lxc file push authorized_keys juju-1dbdca-8/home/ananth/.ssh/
+
+
 ~~~
