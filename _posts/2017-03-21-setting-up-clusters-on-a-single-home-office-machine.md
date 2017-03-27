@@ -234,10 +234,14 @@ Inside this container, run the following
 sudo su ananth
 ssh-keygen -t rsa -b 2048
 touch ~/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
 chmod 600 ~/.ssh/authorized_keys
 ~~~
 
-We now distribute the keypair across all of the containers that represent the containers for the remaining nodes of the cluster. To complete this action, we copy the generated key files from the chosen node ( id 5 in our case above ) to the host machine and then push them to all of the remaining nodes. On the host machine, do the following from a directory where you would be managing the file copies. **Ensure you are not on the .ssh folder on the host** 
+We now distribute the keypair across all of the containers that represent the containers for the remaining nodes of the cluster. Note that copying of the private key is not absolutely required. Copying private key around is not recommended either but should be ok as we are not copying around the host users key. We are however doing so for greater flexibility of ssh access from all of the containers equally. 
+
+To complete this action, we copy the generated key files from the chosen node ( id 5 in our case above ) to the host machine and then push them to all of the remaining nodes. On the host machine, do the following from a directory where you would be managing the file copies. **Ensure you are not on the .ssh folder on the host** 
+
 
 ~~~bash
 sudo lxc file pull juju-1dbdca-5/home/ananth/.ssh/id_rsa.pub .
@@ -278,5 +282,7 @@ The final step is to change the ownership of the id_rsa file that is copied onto
 
 For this traverse to the directory on the host machine where we copied the key pair files and issue a chown & chmod to the id_rsa file. 
 
-Follow the instructions on the cloudera documentation website to install the cluster on containers 5 to 8. 
+Follow the instructions on the cloudera [documentation](https://www.cloudera.com/documentation/enterprise/latest/topics/cm_ig_install_path_a.html#id_vwc_vym_25)  to install the cluster on containers 5 to 8.
+
+# Conclusion
 
