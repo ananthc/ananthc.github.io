@@ -6,10 +6,7 @@ published: true
 sidebar:
   nav: tagssidebar
 ---
----
-sidebar:
-  nav: "tagssidebar"
----
+
 {% include group-by-array collection=site.posts field="categories" %}
 
 {% for category in group_names %}
