@@ -11,7 +11,7 @@ tagssidebar:
   - title: Tags
     children:
       - title: "apex"
-        url: "https://ananthc.github.io/#apex"
+        url: "https://ananthc.github.io/tags/#apex"
       - title: "Structure"
         url: /docs/structure/
       - title: "Installation"
