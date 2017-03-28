@@ -1,10 +1,13 @@
 ---
 layout: archive
 permalink: /categories/
-title: "Posts by Category"
-#author_profile: true
+title: Posts by Category
+published: true
 ---
-
+---
+sidebar:
+  nav: "tags"
+---
 {% include group-by-array collection=site.posts field="categories" %}
 
 {% for category in group_names %}
