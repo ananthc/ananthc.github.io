@@ -8,10 +8,10 @@ main:
     url: /year-archive
     
 tagssidebar:
-  - title: Getting Started
+  - title: Tags
     children:
-      - title: "Quick-Start Guide"
-        url: /docs/quick-start-guide/
+      - title: "apex"
+        url: "https://ananthc.github.io/#apex"
       - title: "Structure"
         url: /docs/structure/
       - title: "Installation"
