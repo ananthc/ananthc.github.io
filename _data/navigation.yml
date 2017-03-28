@@ -8,16 +8,16 @@ main:
     url: /year-archive
     
 tagssidebar:
-  - title: Tags
+  - title: Data Engineering
     children:
-      - title: "apex"
-        url: "https://ananthc.github.io/tags/#apex"
-      - title: "Structure"
-        url: /docs/structure/
-      - title: "Installation"
-        url: /docs/installation/
-      - title: "Upgrading"
-        url: /docs/upgrading/
+      - title: "Apex"
+        url: "https://ananthc.github.io/tags/#Apex
+      - title: "Spark"
+        url: 
+      - title: "Hadoop"
+        url: "https://ananthc.github.io/tags/#Hadoop"
+      - title: "DSE Graph"
+        url: 
 
   - title: Customization
     children:
