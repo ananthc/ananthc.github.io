@@ -13,12 +13,8 @@ tagssidebar:
       - title: "Apex"
         url: "https://ananthc.github.io/tags/#Apex
       - title: "Spark"
-        url: 
+        url: ""
       - title: "Hadoop"
         url: "https://ananthc.github.io/tags/#Hadoop"
       - title: "DSE Graph"
-        url: 
-
-  - title: Customization
-    children:
-      - title: "Configuration"
+        url: ""
