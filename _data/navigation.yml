@@ -11,7 +11,7 @@ tagssidebar:
   - title: Data Engineering
     children:
       - title: "Apex"
-        url: "https://ananthc.github.io/tags/#Apex
+        url: "https://ananthc.github.io/tags/#Apex"
       - title: "Spark"
         url: ""
       - title: "Hadoop"
