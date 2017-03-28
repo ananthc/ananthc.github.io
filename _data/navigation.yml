@@ -7,7 +7,7 @@ main:
   - title: "Posts by year"
     url: /year-archive
     
-tagesidebar:
+tagssidebar:
   - title: Getting Started
     children:
       - title: "Quick-Start Guide"
@@ -21,4 +21,4 @@ tagesidebar:
 
   - title: Customization
     children:
-      - title: "Configuration"    
+      - title: "Configuration"
