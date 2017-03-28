@@ -138,9 +138,10 @@ juju ssh 3
 ~~~
 
 Note that the following are automatically configured by using the juju add-machine command:
-- ssh user provisiong using the host login. The host 
-- administrative web console with a user login credentials automatically configured for the host user login. ( Use juju gui command to get the auto configured password credentials that can be used in the administrative web console ) 
-- IP addresses configured ( No need to edit /etc/hosts )
+- ssh user provisiong using the host login. The host user simply needs to use "juju ssh <machine-number>" to loginto the newly spawned container
+- a user named "ubuntu" with sudo permissions 
+- administrative web console with a user login credentials automatically configured- Use "juju gui" command to get the auto configured password credentials that can be used in the administrative web console.
+- IP addresses configured
 - Network connectivity between all the nodes in the same model
 - Host node can ping and reach to any of the ports of the containers just provisioned.
 - File system access is available from the host to the target container from the following path: /var/lib/lxd/storage-pools/lvmlxd/containers/<container id>/rootfs ( Note that lvmlxd represents the name of the lvm that was used to create the storage pool for lxd while initializing it) 
@@ -285,4 +286,3 @@ For this traverse to the directory on the host machine where we copied the key p
 Follow the instructions on the cloudera [documentation](https://www.cloudera.com/documentation/enterprise/latest/topics/cm_ig_install_path_a.html#id_vwc_vym_25)  to install the cluster on containers 5 to 8.
 
 # Conclusion
-
