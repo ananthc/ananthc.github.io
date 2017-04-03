@@ -12,6 +12,23 @@ categories:
   - Misc
 permalink: setting-up-clusters-on-a-single-home-office-machine
 title: Setting up clusters on a single host
+gallery:
+  - url: /assets/images/cluster-on-a-single-host-juju/Apex-install.png
+    image_path: /assets/images/cluster-on-a-single-host-juju/Apex-install.png
+    alt: APex dashboard
+    title: Apache pex running on CDH cluster
+  - url: /assets/images/cluster-on-a-single-host-juju/CDH-install.png
+    image_path: /assets/images/cluster-on-a-single-host-juju/CDH-install.png
+    alt: CDH Admin Console
+    title: CDH cluster with Spark and Impala
+  - url: /assets/images/cluster-on-a-single-host-juju/kudumaster.png
+    image_path: /assets/images/cluster-on-a-single-host-juju/kudumaster.png
+    alt: kudu master
+    title: Kudu cluster master with 3 data nodes
+  - url: /assets/images/cluster-on-a-single-host-juju/dsegraph-install.png
+    image_path: /assets/images/cluster-on-a-single-host-juju/dsegraph-install.png
+    alt: DSE graph opscenter
+    title: DSE graph running on a 3 node cluster
 ---
 
 {% include toc %}
@@ -286,3 +303,9 @@ For this traverse to the directory on the host machine where we copied the key p
 Follow the instructions on the cloudera [documentation](https://www.cloudera.com/documentation/enterprise/latest/topics/cm_ig_install_path_a.html#id_vwc_vym_25)  to install the cluster on containers 5 to 8.
 
 # Conclusion
+
+Since the data mounts are persistent ( and mapped to directories on the host where we want them hosted say directories on SSDs or spinning disks ), we can also install applications like Apache Apex and datastax graph. 
+
+An example setup of a clusters of Cloudera stack with Spark and Impala, Apache Apex running configured with this CDH, Kudu cluster with 3 data nodes and DataStax Graph ( DSE graph) look like this:
+
+{% include gallery caption="Clusters on a single host" %}
