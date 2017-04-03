@@ -34,9 +34,9 @@ gallery:
 {% include toc %}
 
 # The need
-With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple frameworks on a cluster of machines that are at one's disposal. Not everyone has the luxury of access to a collection of machines to run these frameworks in a true distributed mode. 
+Open source distributed compute frameworks are gaining momentum and in this context one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple such frameworks on a cluster of machines that are at one's disposal. Not everyone has the luxury of access to a collection of machines to run these frameworks in a true distributed mode. 
 
-However setting up of true clusters on a single host is quickly becoming a reality. If we have access to for one powerful computer, there are ways we can achieve setting up of a true distributed cluster using some nice frameworks that are gaining traction in the cloud and containers space. This post describes setup of such clusters on a single machine from two different use cases perspective. 
+However access to a single machine is more probable and setting up of true clusters on such a single host is quickly becoming a reality. If we have access to for one powerful computer, there are ways we can achieve setting up of a true distributed cluster using some nice frameworks that are gaining traction in the cloud and containers space. This post describes setup of such clusters on a single machine from two different use cases perspective. 
 - A situation wherein there is a dependency on the file systems support and the default file system offered is not suitable for the cluster.
 - A situation wherein the host OS is not compatible with the software stack version. 
 
@@ -46,13 +46,13 @@ Taking Hadoop as an example, let us first consider the alternatives before we st
 
 - Setup and use the single node as a psuedo cluster as given [here](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html) 
 - Use AWS services
-- For some hadoop distributions, there are alternatives. For example for Cloudera, this github [project](https://github.com/cloudera/clusterdock) and this [blog](https://blog.cloudera.com/blog/2016/08/multi-node-clusters-with-cloudera-quickstart-for-docker/) can be used as a good starting point.
+- For some hadoop distributions, there are alternatives. For Cloudera as an example, this github [project](https://github.com/cloudera/clusterdock) and this [blog](https://blog.cloudera.com/blog/2016/08/multi-node-clusters-with-cloudera-quickstart-for-docker/) can be used as a good starting point.
 
 
 However there are drawbacks that prevents us from using these approaches in a flexible way. Some reasons are
 
 - The host OS is not compatible with the installers. Many a times the host OS is on a newer kernel and the standard distributions are not yet compatible with the latest OS release. 
-- Psuedo mode does not help in all use cases. Example YARN applications like Apache [Apex](https://apex.apache.org/) that run on top of YARN require a true cluster for developers to monitor the progress of an application.
+- Psuedo mode does not help in all use cases. Example YARN applications like Apache [Apex](https://apex.apache.org/) that run on top of YARN and Hadoop require a true cluster for developers to monitor the progress of an application.
 - Docker container based approaches do not work great as some of these containers are not flexible enough to let a volume mountpoint to be flexible. Moreoever every change to the application sitting on top of the "pseudo" distributed cluster needs to be committed as an image and re-used in subsequent startups. In a true sense , creating an image out of distributed cluster might not be a great idea because of the issues involved. All of this needs a lot more time to manage.
 - Containerized approaches do not catch up always with the release of the distribution. For example there are stacks which allow containerized versions of the stack but they are not always on the latest version
 - Of course Hadoop is just an example and many other distributed software like Cassandra would ideally need a collection of machines to be used as the hosts. Since Cassandra is a peer to peer model and requires common ports to be used across all instances of the peers, the scope of setting it up in distributed mode on a single host does not arise. 
@@ -60,7 +60,7 @@ However there are drawbacks that prevents us from using these approaches in a fl
 
 # Juju and LXD - The enablers
 
-[Juju](https://www.ubuntu.com/cloud/juju) from canonical is a service modelling and deployment tool. Juju coupled with "[charms](https://jujucharms.com)" makes setup of available stacks ( referred to as juju charm) as simple as a few clicks . We are not going to use charms in this post as the stacks we are trying to deploy are not avaialble as a ready made charm. 
+[Juju](https://www.ubuntu.com/cloud/juju) from canonical is a service modelling and deployment tool. Juju coupled with "[charms](https://jujucharms.com)" makes setup of available stacks ( referred to as a juju charm) as simple as a few clicks . We are not going to use charms in this post as the stacks we are trying to deploy are not avaialble as a ready made charm. 
 
 Juju supports well known "clouds" like AWS, Google, Bare metal and even LXD. LXD provides for an interesting context for the use cases we are interested in. [Here](http://unix.stackexchange.com/questions/254956/what-is-the-difference-between-docker-lxd-and-lxc) is a good summary of how LXD is different from other containers. The [LXD blog series](https://insights.ubuntu.com/2016/03/14/the-lxd-2-0-story-prologue) by Stéphane Graber is a very good starting point to be educated on LXD images and containers. We are going to build upon LXD to solve our  use cases to set up a personalized cluster on a single host.
 
@@ -85,7 +85,7 @@ In the next step we create a fresh volume that can be used as a ext4 filesystem 
 ~~~bash
 sudo lxc storage create lvmlxd lvm source=/dev/sdb1
 ~~~
-We then add this storage to the "default" profile. The default profile is installed automatically during the install process.
+We then add this storage to the "default" profile. The default profile is installed automatically during the controller provisioning process.
 ~~~bash
 sudo lxc profile device add default root disk path=/ pool=lvmlxd
 ~~~
@@ -121,7 +121,7 @@ juju add-model dataplatform
 
 # Kudu - Case of non-compatible file system
 
-Let us first consider setting up a kudu cluster. Kudu comes with a need for the underlying file system to be handling the falloc system call which supports file system hole punching i.e. a portion of the file can be marked as unwanted and the associated storage released. However the default lxd cloud setup is configured to be run on zfs file system. Since we configured our "private cloud" to be based of ext4, we are now ready to set up our kudu cluster. 
+Let us first consider setting up a Kudu cluster. Kudu comes with a need for the underlying file system to be handling the falloc system call with support for file system hole punching i.e. a portion of the file can be marked as unwanted and the associated storage released. However the default lxd cloud setup is configured to be run on zfs file system. Since we configured our "private cloud" to be based of ext4, we are now ready to set up our kudu cluster. 
 
 We are setting up a 3 tablet server nodes and one master node as part of our cluster. Hence we will be adding 4 "nodes" to the dataplatform model. 
 
@@ -156,14 +156,14 @@ juju ssh 3
 
 Note that the following are automatically configured by using the juju add-machine command:
 - ssh user provisiong using the host login. The host user simply needs to use "juju ssh <machine-number>" to loginto the newly spawned container
-- a user named "ubuntu" with sudo permissions 
+- a user named "ubuntu" with sudo permissions on the lxd container node
 - administrative web console with a user login credentials automatically configured- Use "juju gui" command to get the auto configured password credentials that can be used in the administrative web console.
 - IP addresses configured
 - Network connectivity between all the nodes in the same model
-- Host node can ping and reach to any of the ports of the containers just provisioned.
+- Host node can ping and reach to any of the ports of the containers provisioned.
 - File system access is available from the host to the target container from the following path: /var/lib/lxd/storage-pools/lvmlxd/containers/<container id>/rootfs ( Note that lvmlxd represents the name of the lvm that was used to create the storage pool for lxd while initializing it) 
 
-We are now ready to install the kudu cluster on these 4 nodes. However there is a small optimization we would like to push in. Since we guess that there would be loads of data storage requirements for each of these nodes and the default image provisioned only has a capacity of 9.8G, we are going to add extra "disk space" to each of the 3 kudu tablet servers. The disks are going to be mounted on a host node directory as a mount point on the running container. These mount points are persisted on the images even after restarts. 
+We are now ready to install the Kudu cluster on these 4 nodes. However there is a small optimization we would like to push in. Since we guess that there would be loads of data storage requirements for each of these nodes and the default image provisioned only has a capacity of 9.8G, we are going to add extra "disk space" to each of the 3 Kudu tablet servers. The disks are going to be mounted on the host in a directory acting as a mount point inside the running lxd container. These mount points are persisted on the images even after restarts. 
 
 First let us make a directory on the host that will be used as a mountpoint on each of the containers. Let us say the directories on the host are as follows : 
 
@@ -173,7 +173,7 @@ mkdir -p /storage/node2/data
 mkdir -p /storage/node3/data
 ~~~
 
-We now have to ensure that the host directory permissions are compatible with the container permissions. For this we need to obtain the userid for the containers. To obtain the userid, simply list the user permissions on any of the containers mounted on /var/lib/lxd/storage-pools/lvmlxd/containers/
+We now have to ensure that the host directory permissions are compatible with the container permissions. For this we need to obtain the userid fof root for the provisioned containers. To obtain the userid, simply list the user permissions on any of the containers mounted on /var/lib/lxd/storage-pools/lvmlxd/containers/
 ~~~bash
 ls -alh /var/lib/lxd/storage-pools/lvmlxd/containers/
 ~~~
@@ -193,7 +193,7 @@ sudo lxc config device add juju-1dbdca-2 datamountname disk path=/data source=/s
 sudo lxc config device add juju-1dbdca-3 datamountname disk path=/data source=/storage/node3/data
 ~~~
 
-Install kudu as you would on a normal cluster of nodes. Assuming you are doing a package based install , the following is a set of cryptic install instructions **on each of the nodes**. Use juju ssh <machine number> to each of the containers before executing the following. 
+Now our 4 "machine" is ready for setup. Install Kudu as you would on a normal cluster of nodes. Assuming you are doing a package based install , the following is a set of cryptic install instructions **on each of the nodes**. Use juju ssh <machine number> to each of the containers before executing the following. 
 ~~~bash
 Add cloudera repo as given http://archive.cloudera.com/kudu/ubuntu/xenial/amd64/kudu/cloudera.list in /etc/apt/sources.list.d/cloudera.list
 sudo apt-get update
@@ -241,7 +241,7 @@ Exit from the container shells.
 
 Next we need to ensure that this user either has the same password across all containers or can be logged in remotely using the same private key. We shall be using the private key approach to show case the aspects of file copy from host to containers or vice versa. 
 
-We try to generate the key pair that will be used to login to all of the cloudera managed containers during the install process. We generate this key pair for the user we added above.
+We first generate the key pair that will be used to login to all of the cloudera managed containers during the install process. We generate this key pair for the user we added above.
 
 "juju ssh" to any one of the nodes (say node 5). 
 ~~~bash
