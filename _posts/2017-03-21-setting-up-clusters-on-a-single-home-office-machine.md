@@ -308,4 +308,4 @@ Since the data mounts are persistent ( and mapped to directories on the host whe
 
 An example setup of a clusters of Cloudera stack with Spark and Impala, Apache Apex running configured with this CDH, Kudu cluster with 3 data nodes and DataStax Graph ( DSE graph) look like this:
 
-{% include gallery caption="Clusters on a single host" %}
+{% include gallery caption="" %}
