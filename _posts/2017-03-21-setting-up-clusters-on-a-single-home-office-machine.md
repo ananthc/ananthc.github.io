@@ -298,14 +298,14 @@ sudo chmod 744 /home/ananth/.ssh/id_rsa.pub
 
 The final step is to change the ownership of the id_rsa file that is copied onto the host. This is required only because the cloudera installation wizard asks for the copy of the private key file of the ananth user while installing the cluster and fails with a very very crpytic error if the private key does not have the correct permission model. 
 
-For this traverse to the directory on the host machine where we copied the key pair files and issue a chown & chmod to the id_rsa file. 
+For this traverse to the directory on the host machine where we copied the key pair files and issue a chown & chmod to the id_rsa file so that the user uploading the key file as part of the installation process has read permissions.
 
 Follow the instructions on the cloudera [documentation](https://www.cloudera.com/documentation/enterprise/latest/topics/cm_ig_install_path_a.html#id_vwc_vym_25)  to install the cluster on containers 5 to 8.
 
 # Conclusion
 
-Since the data mounts are persistent ( and mapped to directories on the host where we want them hosted say directories on SSDs or spinning disks ), we can also install applications like Apache Apex and datastax graph. 
+Since the data mounts are persistent, we can also install applications like Apache Apex and datastax graph and get to same state on a reboot of the host.
 
-An example setup of a clusters of Cloudera stack with Spark and Impala, Apache Apex running configured with this CDH, Kudu cluster with 3 data nodes and DataStax Graph ( DSE graph) look like this:
+An example setup of a clusters of Cloudera stack with Spark and Impala, Apache Apex running configured with this CDH, Kudu cluster with 3 data nodes and DataStax Graph ( DSE graph) on another 3 nodes look like this:
 
 {% include gallery caption="" %}
