@@ -17,11 +17,11 @@ title: Setting up clusters on a single host
 {% include toc %}
 
 # The need
-With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple frameworks as a single stack. Not everyone has the luxury for access to a collection of nodes to run these frameworks in a true distributed mode. 
+With more open source distributed compute frameworks gaining momentum, one would like to setup a true cluster for various experimentation and open source contribution needs. With closer integrations being enabled for each of these frameworks, needs arise to setup multiple frameworks on a cluster of machines that are at one's disposal. Not everyone has the luxury of access to a collection of machines to run these frameworks in a true distributed mode. 
 
-If we have access to for one powerful computer, there are ways we can achieve setting up of a true distributed cluster using some nice frameworks in the cloud and containers space. This post describes setup of such clusters on a single machine from three different use cases perspective. 
+However setting up of true clusters on a single host is quickly becoming a reality. If we have access to for one powerful computer, there are ways we can achieve setting up of a true distributed cluster using some nice frameworks that are gaining traction in the cloud and containers space. This post describes setup of such clusters on a single machine from two different use cases perspective. 
 - A situation wherein there is a dependency on the file systems support and the default file system offered is not suitable for the cluster.
-- A situation wherein the host OS is not compatible with the distributed version. 
+- A situation wherein the host OS is not compatible with the software stack version. 
 
 
 # Drawbacks of current approaches
@@ -36,9 +36,9 @@ However there are drawbacks that prevents us from using these approaches in a fl
 
 - The host OS is not compatible with the installers. Many a times the host OS is on a newer kernel and the standard distributions are not yet compatible with the latest OS release. 
 - Psuedo mode does not help in all use cases. Example YARN applications like Apache [Apex](https://apex.apache.org/) that run on top of YARN require a true cluster for developers to monitor the progress of an application.
-- Docker container based approaches do not work great as some of these containers are not flexible enough to let a volume mountpoint to be flexible. Moreoever every change to the application sitting on top of the "pseudo" distributed cluster needs to be committed as an image and re-used in subsequent startups. In a true sense , creating an image out of distributed cluster might not be a great idea. All of this needs a lot more time to manage.
+- Docker container based approaches do not work great as some of these containers are not flexible enough to let a volume mountpoint to be flexible. Moreoever every change to the application sitting on top of the "pseudo" distributed cluster needs to be committed as an image and re-used in subsequent startups. In a true sense , creating an image out of distributed cluster might not be a great idea because of the issues involved. All of this needs a lot more time to manage.
 - Containerized approaches do not catch up always with the release of the distribution. For example there are stacks which allow containerized versions of the stack but they are not always on the latest version
-- Of course Hadoop is just an example and many other distributed software like cassandra would ideally need a cluster of machines to be used as the hosts. Since it is a peer to peer model and requires common ports to be used across all instances of the peers, the scope of setting it up in distributed mode does not arise. 
+- Of course Hadoop is just an example and many other distributed software like Cassandra would ideally need a collection of machines to be used as the hosts. Since Cassandra is a peer to peer model and requires common ports to be used across all instances of the peers, the scope of setting it up in distributed mode on a single host does not arise. 
 - AWS might be the solution but comes with a cost.
 
 # Juju and LXD - The enablers
