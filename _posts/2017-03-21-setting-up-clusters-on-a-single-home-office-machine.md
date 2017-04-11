@@ -89,6 +89,13 @@ We then add this storage to the "default" profile. The default profile is instal
 ~~~bash
 sudo lxc profile device add default root disk path=/ pool=lvmlxd
 ~~~
+
+Next we edit the default lxd config to automatically provision a higher file handle limits and unlimited memory ulimits for every container that is provisioned. This is only required where certain stacks like CDH require the OS to have higher limits by default but changing these values in the container will not take effect as the underlying host is effectively managing this at the kernel level. Hence we set this in the lxd.conf located in /etc/init/lxd.conf
+~~~bash
+limit nofile 65536 65536
+limit memlock unlimited unlimited
+~~~
+
 We are now ready to set up the private cloud. 
 ~~~bash
 sudo lxd init
