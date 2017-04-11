@@ -121,6 +121,31 @@ We then choose to set some properties to get us started on setting up the cloud
 sudo lxc network set lxdbr0 ipv6.address none
 ~~~
 
+If network access is needed for all of the containers from the host or on the same lan, one needs to configure a network bridge which will be used as a parent for the default eth0 interface in all of the spawned containers. Edit /etc/network/interfaces file and add the following assuming enp60 is the name of your ethernet connection name as given by ifconfig. Note that wireless connections do not seem to work with the bridged networking connection approach. 
+
+~~~bash
+auto br0
+iface br0 inet dhcp
+    bridge-ifaces enp6s0
+    bridge-ports enp6s0
+    up ifconfig enp6s0 up
+
+iface enp6s0 inet manual
+~~~
+
+Next edit the default lxc profile to instruct eth0 in the container to be bridged to the br0 network on the host. For this edit the default profile by issuing the command 
+
+~~~bash
+sudo lxc profile edit default
+~~~
+
+In the content , replace the 'lxdbr0' with 'br0' 
+
+Next we initialize juju framework to use LXD as the cloud infrastructure
+~~~
+juju bootstrap lxd
+~~~
+
 Next we add a model. More information about a [model](https://jujucharms.com/docs/2.1/models) and [controller](https://jujucharms.com/docs/2.1/controllers) can be found on the juju documentation site. Here we are naming our model as dataplatform and we are setting up all of our "nodes" in this model.
 ~~~bash
 juju add-model dataplatform
