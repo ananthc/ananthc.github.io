@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 comments: true
 header:
   image: /assets/images/patrick-lindenberg-191841.jpg
@@ -35,6 +35,4 @@ The message from kafka topic would be in a JSON format having the following fiel
 - timestamp
 - is_stepup
 - transaction_amnt
-- deviceid 
-
-
+- deviceid
