@@ -21,13 +21,13 @@ The blog describes the features supported by the Kudu output operator by walking
 2. Devices table
 
 The transactions table has the following columns 
-- transactionid
-- timestamp
+- transactionid ( primary key )
+- timestamp ( primary key )
 - is_stepup
 - transaction_amnt
 
 The devices table has a single column that defines part of its primary key
-- deviceid
+- deviceid ( primary key )
 - timestamp
 
 The message from kafka topic would be in a JSON format having the following fields:
@@ -36,4 +36,5 @@ The message from kafka topic would be in a JSON format having the following fiel
 - is_stepup
 - transaction_amnt
 - deviceid 
+
 
