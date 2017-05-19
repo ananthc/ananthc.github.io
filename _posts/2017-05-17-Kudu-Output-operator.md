@@ -166,7 +166,7 @@ To achieve exactly once semantics, the developer can override the default implem
   }
 ~~~
 
-In this example, the class TransactionsTableKuduOutputOperator extends the BaseKuduOutputOperator.  The Base implementation ensures that the above method is called when the application is resuming from a crash.Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured.  
+In this example, the class TransactionsTableKuduOutputOperator extends the BaseKuduOutputOperator.  The Base implementation ensures that the above method is called when the application is resuming from a crash.Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured. We are thus using the logic in this method to check for duplicate writes to the table 
 
 ## Setting the timestamps for write resolution 
 
