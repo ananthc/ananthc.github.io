@@ -224,6 +224,6 @@ For both of these classes of metrics, the following metrics are captured.
 Note that the Kudu output operator uses async threads while performing the writes to the Kudu operator. Hence there is a subtle difference between number of write operations and number of write RPCs.
 
 ## Conclusion
-
+The Kudu output operator integrated with Apex thus allows for very low latency writes to a distributed kudu store at very high throughputs. If there are SQL engines like Impala sitting on top of the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store thus over-riding the drawbacks of parquet styled batch optimized file patterns. 
 
 
