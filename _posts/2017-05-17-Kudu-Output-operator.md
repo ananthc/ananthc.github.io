@@ -39,7 +39,7 @@ The message from kafka topic would be in a JSON format having the following fiel
 
 ## Design of the output operator
 
-Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance specifies the payload as a field of the execution context. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
+Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance contains the payload/POJO class that is to be used to write to the Kudu table. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
 
 The following sections describe the features of the Kudu output operator using various use cases.
 
@@ -83,6 +83,6 @@ You can create multiple instances of the Kudu operator. Since we cannot have mul
     } 
 ~~~
 
-Note that the Kudu output operator is using a file named "transactiontable.properties" to define the values for master hosts, table name and the pojo payload class.
+Note that the Kudu output operator is using a file named "transactiontable.properties" to define the values for master hosts, table name and the pojo payload class. Note that in the code snippet above, we are using a derived class of the Baseoutput operator which also supports the string parameter based constructor. 
 
 
