@@ -105,7 +105,7 @@ The above code snippet creates a new instance of the KuduExecution context. The 
 
 ## Automatic schema detection
 
-Note that the Kudu output operator 
+Note that the Kudu output operator automatically detects the kudu table schema and aligns the Pojo payload filed names to the table column names. The default behavior of the operator is to perform a case insensitive alignment of the 
 
 ## Overriding POJO mappings to column names 
 
