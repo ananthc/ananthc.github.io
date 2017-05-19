@@ -39,4 +39,8 @@ The message from kafka topic would be in a JSON format having the following fiel
 
 ## Design of the output operator
 
-Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The execution context specifies the payload as a field of the execution context. Apart from this, the execution context also allows the type of mutation that needs to be performed on the kudu store. This allows a single instance of the operator to perform all models of a mutation in a single app. 
+Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance specifies the payload as a field of the execution context. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
+
+
+
+
