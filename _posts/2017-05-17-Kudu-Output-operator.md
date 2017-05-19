@@ -215,7 +215,7 @@ For both of these classes of metrics, the following metrics are captured.
 2. Number of upserts
 3. Number of updates
 4. Number of deletes
-5. Number of Bytes written
+5. Number of bytes written
 6. Number of write operations
 7. Number of write RPCs
 8. Number of RPC errors 
