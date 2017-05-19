@@ -133,6 +133,36 @@ Note that we can effectively use this to map any POJO field name to any of the k
 
 ## Exactly once semantics
 
+Implementing exactly once semantics in Kudu is a tricky issue as Kudu does not provide a transaction construct. This prevents in implementing patterns for "exactly once" semantics like other operators to commit tuples at the end of the window boundary. 
+
+To achieve exactly once semantics, the developer can override the default implementation of the method isEligibleForPassivationInReconcilingWindow(..). The following code snippet depicts a simple way to 
+
+~~~java
+
+  @Override
+  protected boolean isEligibleForPassivationInReconcilingWindow(KuduExecutionContext executionContext,
+                                                                long reconcilingWindowId)
+  {
+    if (tableForReads == null) {
+      initConnectionForReads();
+    }
+    KuduScanner.KuduScannerBuilder scannerBuilder = apexKuduConnectionForReads.getKuduClient()
+                                                    .newScannerBuilder(tableForReads);
+    KuduExecutionContext<TransactionPayload> executionContextForThisTuple =
+      (KuduExecutionContext<TransactionPayload>) executionContext;
+    KuduScanner scannerForThisRead = scannerBuilder
+                                      .limit(1)                                         .addPredicate(KuduPredicate.newComparisonPredicate(transactionidCol,
+                                       KuduPredicate.ComparisonOp.EQUAL,                                       executionContextForThisTuple.getPayload().getTransactionId()))                                      .addPredicate(KuduPredicate.newComparisonPredicate(timestampCol,
+                                        KuduPredicate.ComparisonOp.EQUAL,
+                                        executionContextForThisTuple.getPayload().getTimestamp()))
+                                      .build();
+    if (scannerForThisRead.hasMoreRows()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+~~~
 
 ## Setting the timestamps for write resolution 
 
