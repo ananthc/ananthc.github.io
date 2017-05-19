@@ -128,6 +128,8 @@ In the child class, override the following method to override the mapping of POJ
     return overridingColumns;
   }
 ~~~
+In the above code snippet, we are mapping the Kudu table column "transaction_amnt" to the POJO field name called transactionAmount.
+Note that we can effectively use this to map any POJO field name to any of the kudu column names. 
 
 ## Exactly once semantics
 
