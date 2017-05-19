@@ -62,11 +62,25 @@ The following snippet of code represents the instantiation of the operator in th
 ~~~java
     try {
       BaseKuduOutputOperator deviceStatusTableKuduOutputOperator = new BaseKuduOutputOperator();
+      ....
+    } catch (IOException| ClassNotFoundException e) {
+      ....
+    }
+    dag.addOperator("devicestatuskuduoutput",deviceStatusTableKuduOutputOperator);    
+~~~
+
+## Using multiple instances of the operator in a single apex application
+The kudu output operator also allows for multiple instances of the kudu output operator to be created in the same application. Consider a sample application wherein messages from a single Kafka topic will be used to persist to multiple Kudu tables in the same application. 
+
+You can create multiple instances of the Kudu operator. Since we cannot have multiple configuration files with the same name, the Kudu output operator constructor allows a string parameter to be passed which represents the configuration property file. This file needs to be present in the root classpath of the application. The java code snippet for this style of operator instance creation can be represented as follows:
+
+~~~java
+    try {
+      TransactionsTableKuduOutputOperator transactionsTableKuduOutputOperator = new TransactionsTableKuduOutputOperator("transactiontable.properties");
+      .....
     } catch (IOException| ClassNotFoundException e) {
       ....
     }
 ~~~
-
-## Using multiple instances of the operator in a single apex application
 
 
