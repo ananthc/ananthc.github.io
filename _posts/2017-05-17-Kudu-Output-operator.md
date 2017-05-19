@@ -85,4 +85,24 @@ You can create multiple instances of the Kudu operator. Since we cannot have mul
 
 Note that the Kudu output operator is using a file named "transactiontable.properties" to define the values for master hosts, table name and the pojo payload class. Note that in the code snippet above, we are using a derived class of the Baseoutput operator which also supports the string parameter based constructor. 
 
+## Specifying the type of mutation from the upstream operator
+The upstream operator can specify the type of mutation that needs to be used to perform the mutation. The following types of mutations are supported set of mutations:
+
+1. Insert 
+2. Upsert
+3. Update
+4. Delete
+
+The following snippet of code can be used in the upstream operator to pass to the Kudu output operator. 
+
+~~~java
+    KuduExecutionContext<TransactionPayload> context = new KuduExecutionContext<>();
+    context.setPayload(payload);
+    context.setMutationType(KuduMutationType.INSERT);
+    outputPortForWrites.emit(context); 
+~~~
+The above code snippet creates a new instance of the KuduExecution context. The instance "payload" in the above snippet represents a POJO that is to be used by the Kudu output operator to persist to the Kudu table that has been set at constructions time. 
+
+
+
 
