@@ -171,7 +171,17 @@ In this example, the class TransactionsTableKuduOutputOperator extends the BaseK
 Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured and a subsequent restart of the application starts the operator in a  reconciling mode. The processing resumes to normal mode after this reconciling window from the subsequent window.We are thus using the logic in this method to check for duplicate writes to the table. Ideally this could have been solved using an "upsert" mutation type. But "upsert" mutation might not always work when there is a use case of another operator doing an "update" on the same row.
 
 ## Setting the timestamps for write resolution 
+Consider the use case wherein we are maintaning the last time a device was seen in the devices table.The table gives the last time stamp the device was seen. However there is a caveat that not all tuples arriving in the Kafka topic are time ordered. Hence there is a probability of erraneous timestamp showing in the devices table due out of sequence events. 
 
+Kudu output operator allows the client side timestamps to be propagated to the Kudu server where the mutation is executed. This allows for out of sequence data tuples to be ordered on the server side. The following snippet of code in the upstream operator shows how this can be done.
+
+~~~java
+    KuduExecutionContext<TransactionPayload> context = new KuduExecutionContext<>();
+    context.setPayload(payload);
+    context.setMutationType(KuduMutationType.UPSERT);
+    context.setPropagatedTimestamp(payload.getTimestamp());
+~~~
+The last line as implemented in the upstream operator allows the timestamp to be propagated to the Kudu server. In this case, we are setting the timestamp as given in the incoming tuple from the Kafka topic.
 
 ## Do not write columns for lock free implementations
 
