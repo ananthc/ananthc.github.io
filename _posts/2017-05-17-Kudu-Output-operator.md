@@ -151,8 +151,10 @@ To achieve exactly once semantics, the developer can override the default implem
     KuduExecutionContext<TransactionPayload> executionContextForThisTuple =
       (KuduExecutionContext<TransactionPayload>) executionContext;
     KuduScanner scannerForThisRead = scannerBuilder
-                                      .limit(1)                                         .addPredicate(KuduPredicate.newComparisonPredicate(transactionidCol,
-                                       KuduPredicate.ComparisonOp.EQUAL,                                       executionContextForThisTuple.getPayload().getTransactionId()))                                      .addPredicate(KuduPredicate.newComparisonPredicate(timestampCol,
+                                      .limit(1)
+                                      .addPredicate(KuduPredicate.newComparisonPredicate(transactionidCol,
+                                       KuduPredicate.ComparisonOp.EQUAL,                                       executionContextForThisTuple.getPayload().getTransactionId()))
+                                       .addPredicate(KuduPredicate.newComparisonPredicate(timestampCol,
                                         KuduPredicate.ComparisonOp.EQUAL,
                                         executionContextForThisTuple.getPayload().getTimestamp()))
                                       .build();
