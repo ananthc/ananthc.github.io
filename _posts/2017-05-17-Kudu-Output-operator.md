@@ -80,7 +80,9 @@ You can create multiple instances of the Kudu operator. Since we cannot have mul
       .....
     } catch (IOException| ClassNotFoundException e) {
       ....
-    }
+    } 
 ~~~
+
+Note that the Kudu output operator is using a file named "transactiontable.properties" to define the values for master hosts, table name and the pojo payload class.
 
 
