@@ -166,7 +166,7 @@ To achieve exactly once semantics, the developer can override the default implem
   }
 ~~~
 
-In this example, the class TransactionsTableKuduOutputOperator extends the BaseKuduOutputOperator.  The Base implementation ensures that the above method is called when the application is resuming from a crash.Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured. We are thus using the logic in this method to check for duplicate writes to the table 
+In this example, the class TransactionsTableKuduOutputOperator extends the BaseKuduOutputOperator.  The Base implementation ensures that the above method is called when the application is resuming from a crash.Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured. We are thus using the logic in this method to check for duplicate writes to the table. Ideally this could have been solved using an "upsert" mutation type. But "upsert" mutation might not always work when there is a use case of another operator doing an "update" on a select few columns for the same row.
 
 ## Setting the timestamps for write resolution 
 
