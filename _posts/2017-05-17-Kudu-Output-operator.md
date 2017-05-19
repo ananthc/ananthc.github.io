@@ -41,6 +41,32 @@ The message from kafka topic would be in a JSON format having the following fiel
 
 Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance specifies the payload as a field of the execution context. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
 
+The following sections describe the features of the Kudu output operator using various use cases.
 
+## Creating an instance of the Kudu Output operator
+The simplest way to create an instance of the Kudu Output operator is by adding a file with the name kuduoutputoperator.properties. This file follows the simple java property file conventions. The following are the main keys that are supported and mandatory. 
+
+The following is a sample template that can be used to specify the output operator properties.
+~~~
+masterhosts=192.168.1.41:7051
+tablename=devicestatus
+pojoclassname=github.ananthc.sampleapps.apex.TransactionPayload
+~~~
+
+The masterhosts key represents the Kudu cluster master hosts. The value can be comma separated expression to specify multiple masters.
+The tablename key represents the table name of the Kudu cluster that is being used to write the data to.
+The pojoclassname key is used to specify the instance of the payload class object that will be embedded in the ExecutionContext object that comes from the upstream operator. 
+
+The following snippet of code represents the instantiation of the operator in the Apex Application class. 
+
+~~~java
+    try {
+      BaseKuduOutputOperator deviceStatusTableKuduOutputOperator = new BaseKuduOutputOperator();
+    } catch (IOException| ClassNotFoundException e) {
+      ....
+    }
+~~~
+
+## Using multiple instances of the operator in a single apex application
 
 
