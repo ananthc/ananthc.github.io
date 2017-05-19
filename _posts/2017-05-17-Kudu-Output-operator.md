@@ -105,10 +105,29 @@ The above code snippet creates a new instance of the KuduExecution context. The 
 
 ## Automatic schema detection
 
-Note that the Kudu output operator automatically detects the kudu table schema and aligns the Pojo payload filed names to the table column names. The default behavior of the operator is to perform a case insensitive alignment of the 
+Note that the Kudu output operator automatically detects the kudu table schema and aligns the POJO payload filed names to the table column names. The default behavior of the operator is to perform a case insensitive alignment of the POJO field names to the Kudu table columns. 
 
 ## Overriding POJO mappings to column names 
 
+It is not always possible to align the POJO field names to the Kudu table column names. It is possible to override the POJO field name to the Kudu table column name by extending the BaseKuduOutput Operator. 
+
+~~~java
+public class TransactionsTableKuduOutputOperator extends BaseKuduOutputOperator {
+.....
+}
+~~~
+
+In the child class, override the following method to override the mapping of POJO field name to the Kudu table name.
+
+~~~java
+  @Override
+  protected Map<String, String> getOverridingColumnNameMap()
+  {
+    Map<String,String> overridingColumns = new HashMap<>();
+    overridingColumns.put("transactionAmount","transaction_amnt");
+    return overridingColumns;
+  }
+~~~
 
 ## Exactly once semantics
 
