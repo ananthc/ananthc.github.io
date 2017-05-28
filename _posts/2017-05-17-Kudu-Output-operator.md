@@ -234,5 +234,9 @@ The cluster was built on a single host using the approach outlined here : https:
 
 **Note that the above measurements are on a single machine running the entire stack.** 
 
-Running it on proper hardware can easily achieve 5 ( or even 6) digit throughputs. The following link shows the high throughputs that can be achieved on Kudu. https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ . Perhaps a well designed throughput test on proper hardware that runs Apex and uses Kudu as the store deserves a separate post.  
+Running it on proper hardware can easily achieve 5 ( or even 6) digit throughputs. The following links show the high throughputs that can be achieved on Kudu. 
+- https://kudu.apache.org/2016/04/26/ycsb.html
+- https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ . 
+
+Perhaps a well designed throughput test on proper hardware that runs Apex and uses Kudu as the store deserves a separate post.  
 
