@@ -15,7 +15,7 @@ permalink: using-kudu-output-operator-in-apex
 
 Malhar release 3.8.0 brings in support for writing streams into Kudu as the store.This blog post describes the various usage patterns that are supported by Kudu output operator on the Apex platform.
 
-The blog describes the features supported by the Kudu output operator by walking through the following fictitious business use case. The business use case requires processing data from a kafka topic and persisting the data into a kudu store. Each message from the kafka topic is to be persisted into two tables in kudu. 
+The following fictitious use case is used to describe the features of the Kudu output operator. The business use case requires processing data from a kafka topic and persisting the data into a kudu store. Each message from the kafka topic is to be persisted into two tables in kudu. 
 
 1. Transactions table
 2. Devices table
@@ -39,12 +39,12 @@ The message from kafka topic would be in a JSON format having the following fiel
 
 ## Design of the output operator
 
-Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance contains the payload/POJO class that is to be used to write to the Kudu table. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
+Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance contains the payload/POJO class that is to be used to write to the Kudu table. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store for that payload/POJO instance. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
 
 The following sections describe the features of the Kudu output operator using various use cases.
 
 ## Creating an instance of the Kudu Output operator
-The simplest way to create an instance of the Kudu Output operator is by adding a file with the name kuduoutputoperator.properties. This file follows the simple java property file conventions. The following are the main keys that are supported and mandatory. 
+The simplest way to create an instance of the Kudu Output operator is by adding a file with the name kuduoutputoperator.properties in the application classpath. This file follows the simple java property file conventions. The following are the main keys that are supported and mandatory. 
 
 The following is a sample template that can be used to specify the output operator properties.
 ~~~
@@ -224,6 +224,4 @@ For both of these classes of metrics, the following metrics are captured.
 Note that the Kudu output operator uses async threads while performing the writes to the Kudu operator. Hence there is a subtle difference between number of write operations and number of write RPCs.
 
 ## Conclusion
-The Kudu output operator integrated with Apex thus allows for very low latency writes to a distributed kudu store at very high throughputs. If there are SQL engines like Impala sitting on top of the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store thus over-riding the drawbacks of parquet styled batch optimized file patterns. 
-
-
+The Kudu output operator integrated with Apex thus allows for very low latency writes to a distributed kudu store at very high throughputs. If there are SQL engines like Impala sitting on top of the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store thus over-riding the drawbacks of parquet styled batch optimized file patterns.
