@@ -232,5 +232,5 @@ The cluster was built on a single host using the approach outlined here : https:
 - Approx 1300 transactions per second distributed over two kudu tables from a single apex application
 - Average latency of 5 ms 
 
-** Note that the above measurements are on a single machine running the entire stack.** Running it on proper hardware can easily achieve 5 digit throughputs. The following link shows the high throughputs that can be achieved on Kudu. https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ 
+**Note that the above measurements are on a single machine running the entire stack.** Running it on proper hardware can easily achieve 5 digit throughputs. The following link shows the high throughputs that can be achieved on Kudu. https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ 
 
