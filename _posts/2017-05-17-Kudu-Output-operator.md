@@ -222,7 +222,7 @@ The Kudu output operator integrated with Apex allows for very low latency writes
 
 The following metrics were observed on a cluster setup and configured on a **single host**. The single host was running **all** of the stack outlined below
 
-- CDH 5.10
+- CDH 5.10 full stack ( 3 data nodes, 3 impala daemons, 3 zookeeper daemons, Cloudera Manager, ..) 
 - Apex 3.6.0
 - Confluent Kafka 3.2.1
 - Kudu 1.3
@@ -234,5 +234,5 @@ The cluster was built on a single host using the approach outlined here : https:
 
 **Note that the above measurements are on a single machine running the entire stack.** 
 
-Running it on proper hardware can easily achieve 5 ( or even 6) digit throughputs. The following link shows the high throughputs that can be achieved on Kudu. https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ 
+Running it on proper hardware can easily achieve 5 ( or even 6) digit throughputs. The following link shows the high throughputs that can be achieved on Kudu. https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ . Perhaps a well designed throughput test on proper hardware that runs Apex and uses Kudu as the store deserves a separate post.  
 
