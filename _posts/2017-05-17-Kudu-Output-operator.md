@@ -1,3 +1,6 @@
+---
+published: false
+---
 
 # Using the Kudu output operator in Apex
 
@@ -234,6 +237,3 @@ The single host running the **entire** stack and the test application shows the 
 
 The Kudu output operator shows the following latencies 
 ![alt text](https://github.com/ananthc/sampleapps/blob/master/apache-apex/SimplekuduoutputApp/src/test/resources/Kudu-output-operator-metrics.png "Kudu output operator metrics")
-
-
-
