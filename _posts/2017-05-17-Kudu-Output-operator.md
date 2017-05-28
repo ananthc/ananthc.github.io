@@ -86,14 +86,14 @@ You can create multiple instances of the Kudu operator. Since we cannot have mul
 Note that the Kudu output operator is using a file named "transactiontable.properties" to define the values for master hosts, table name and the pojo payload class. Note that in the code snippet above, we are using a derived class of the Baseoutput operator which also supports the string parameter based constructor. 
 
 ## Specifying the type of mutation from the upstream operator
-The upstream operator can specify the type of mutation that needs to be used to perform the mutation. The following types of mutations are supported set of mutations:
+The upstream operator can specify the "mutation type" that needs to be used to perform the mutation. The following types of mutations are supported set of mutations:
 
 1. Insert 
 2. Upsert
 3. Update
 4. Delete
 
-The following snippet of code can be used in the upstream operator to pass to the Kudu output operator. 
+The following snippet of code can be used in the **upstream operator** to pass to the Kudu output operator. 
 
 ~~~java
     KuduExecutionContext<TransactionPayload> context = new KuduExecutionContext<>();
@@ -101,11 +101,11 @@ The following snippet of code can be used in the upstream operator to pass to th
     context.setMutationType(KuduMutationType.INSERT);
     outputPortForWrites.emit(context); 
 ~~~
-The above code snippet creates a new instance of the KuduExecution context. The instance "payload" in the above snippet represents a POJO that is to be used by the Kudu output operator to persist to the Kudu table that has been set at constructions time. 
+The above code snippet creates a new instance of the KuduExecution context. The instance "payload" in the above snippet represents a POJO that is to be used by the Kudu output operator to persist to the Kudu table. 
 
 ## Automatic schema detection
 
-Note that the Kudu output operator automatically detects the kudu table schema and aligns the POJO payload filed names to the table column names. The default behavior of the operator is to perform a case insensitive alignment of the POJO field names to the Kudu table columns. 
+Note that the Kudu output operator automatically detects the kudu table schema and aligns the POJO payload field names to the table column names. The default behavior of the operator is to perform a case insensitive alignment of the POJO field names to the Kudu table columns. 
 
 ## Overriding POJO mappings to column names 
 
@@ -135,7 +135,7 @@ Note that we can effectively use this to map any POJO field name to any of the k
 
 Implementing exactly once semantics in Kudu is a tricky issue as Kudu does not provide a transaction construct. This prevents in implementing patterns for "exactly once" semantics like other operators to commit tuples at the end of the window boundary. 
 
-To achieve exactly once semantics, the developer can override the default implementation of the method isEligibleForPassivationInReconcilingWindow(..). The following code snippet depicts a simple way to 
+To achieve exactly once semantics, the developer can override the default implementation of the method isEligibleForPassivationInReconcilingWindow(..). The following code snippet depicts a simple approach to do so.
 
 ~~~java
 
@@ -166,9 +166,9 @@ To achieve exactly once semantics, the developer can override the default implem
   }
 ~~~
 
-In this example, the class TransactionsTableKuduOutputOperator extends the BaseKuduOutputOperator.  The base implementation ensures that the above method is called when the application is resuming from a crash. The method returns false if the mutation is not allowed to execute in this "reconciling" phase. Since the business logic decides the "exactly once" semantics, overriding this method helps to achieve in embedding the required business logic into the execution model of the operator. 
+In this example, the class TransactionsTableKuduOutputOperator extends the BaseKuduOutputOperator. The class is overriding the above method to achieve exactly once semantics. The base implementation ensures that the above method is called when the application is resuming from a crash. The method returns false if the mutation is not allowed to execute in this "reconciling" phase. Since the business logic decides the "exactly once" semantics, overriding this method helps to achieve the required outcome even though Kudu does not support transactions.
 
-Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured and a subsequent restart of the application starts the operator in a  reconciling mode. The processing resumes to normal mode after this reconciling window from the subsequent window.We are thus using the logic in this method to check for duplicate writes to the table. Ideally this could have been solved using an "upsert" mutation type. But "upsert" mutation might not always work when there is a use case of another operator doing an "update" on the same row.
+Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured and a subsequent restart of the application starts the operator in a  reconciling mode. The processing resumes to normal mode after this reconciling window from the subsequent window. We are thus using the logic in this method to check for duplicate writes to the table. Ideally this could have been solved using an "upsert" mutation type. But "upsert" mutation might not always work when there is a use case of another operator doing an "update" on the same row.
 
 ## Setting the timestamps for write resolution 
 Consider the use case wherein we are maintaning the last time a device was seen in the devices table.The table gives the last time stamp the device was seen. However there is a caveat that not all tuples arriving in the Kafka topic are time ordered. Hence there is a probability of erraneous timestamp showing in the devices table due out of sequence events. 
@@ -185,7 +185,7 @@ The last line as implemented in the upstream operator allows the timestamp to be
 
 ## Do not write columns for lock free implementations
 
-There are situations wherein we would like to skip writing a few columns for a given row. For example, in the transactions table, we have the use case wherein the is_stepup column is coming as a separate tuple. However this tuple is coming in as a separate transaction from the upstream system. This upstream system which is performing the logic for step up is writing the original transaction id and whether a step up has been initiated. It however does not have the transaction amount column. While performing the write, we would like to keep the remaining rows constant and only write the "is_stepup" column. The following snippet shows how we can ignore a certain collection of columns when performing such writes. 
+There are situations wherein we would like to skip writing a few columns for a given row. For example, in the transactions table, we have the use case wherein the is_stepup column is coming as a separate tuple. However this tuple is coming in as a separate transaction from the upstream system. This upstream system which is performing the logic for step up is writing the original transaction id and whether a step up has been initiated. It however does not have the transaction amount column which was part of the original transaction and already pumped in to the kafka topic. While performing the write, we would like to keep the remaining rows constant and only write the "is_stepup" column. The following snippet shows how we can ignore a certain collection of columns when performing such writes. 
 
 ~~~java
     Set<String> doNotWriteColumnsForTransactionsTable = new HashSet<>();
@@ -200,7 +200,7 @@ There are situations wherein we would like to skip writing a few columns for a g
     context.setDoNotWriteColumns(doNotWriteColumnsForTransactionsTable);
 ~~~
 
-In the above example we are ensuring that the transaction amount column is not over written when the step up transaction is flowing through when this tuple is getting processed. 
+In the above example we are ensuring that the transaction amount column is not over written when the step up transaction is flowing through and is getting processed. 
 
 ## Metric generated by the output operator
 No operator is good if it does not provide an insight into its operational metrics.The Kudu output operator supports the following metrics as tuples are processed: 
@@ -224,4 +224,4 @@ For both of these classes of metrics, the following metrics are captured.
 Note that the Kudu output operator uses async threads while performing the writes to the Kudu operator. Hence there is a subtle difference between number of write operations and number of write RPCs.
 
 ## Conclusion
-The Kudu output operator integrated with Apex thus allows for very low latency writes to a distributed kudu store at very high throughputs. If there are SQL engines like Impala sitting on top of the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store thus over-riding the drawbacks of parquet styled batch optimized file patterns.
+The Kudu output operator integrated with Apex thus allows for very low latency writes to a distributed kudu store at very high throughputs. If there are SQL engines like Impala using the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store. This pattern improves upon the drawbacks of parquet styled batch write file patterns for query engines like Impala. The sub-second writes also provides for a new pattern wherein we would like to use Kudu as a deduping store. 
