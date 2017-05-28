@@ -224,8 +224,8 @@ The following metrics were observed on a cluster setup and configured on a **sin
 
 - CDH 5.10 full stack ( 3 data nodes, 3 impala daemons, 3 zookeeper daemons, Cloudera Manager, ..) 
 - Apex 3.6.0
-- Confluent Kafka 3.2.1
-- Kudu 1.3
+- Confluent Kafka 3.2.1 ( 3 nodes cluster)
+- Kudu 1.3 ( 3 nodes cluster and 1 master )
 
 The cluster was built on a single host using the approach outlined here : https://ananthc.github.io/setting-up-clusters-on-a-single-home-office-machine . The single host was built using an 8-core intel broadwell CPU , SSD hosting the data volumes and 128 GB RAM.  
 
