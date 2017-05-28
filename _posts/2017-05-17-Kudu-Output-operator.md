@@ -25,6 +25,9 @@ The message from kafka topic would be in a JSON format having the following fiel
 - transaction_amnt
 - deviceid
 
+The following image gives a pictorial representation of the application we would want to build:
+![alt text](https://github.com/ananthc/sampleapps/blob/master/apache-apex/SimplekuduoutputApp/src/test/resources/Design-of-the-app.png  "Kudu output operator application design")
+
 ## Design of the output operator
 
 Kudu output operator expects the upstream operator to send the tuple as an instance of ExecutionContext. The ExecutionContext instance contains the payload/POJO class that is to be used to write to the Kudu table. Apart from this, the ExecutionContext also specifies the type of mutation that needs to be performed on the kudu store for that payload/POJO instance. This allows a single instance of the kudu output operator to perform all models of a mutation in a single apex application.
