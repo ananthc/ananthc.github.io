@@ -218,7 +218,7 @@ For both of these classes of metrics, the following metrics are captured.
 Note that the Kudu output operator uses async threads while performing the writes to the Kudu operator. Hence there is a subtle difference between number of write operations and number of write RPCs.
 
 ## Conclusion
-The Kudu output operator integrated with Apex thus allows for very low latency writes to a distributed kudu store at very high throughputs. If there are SQL engines like Impala using the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store. This pattern improves upon the drawbacks of parquet styled batch write file patterns for query engines like Impala. The sub-second writes also provides for a new pattern wherein we could use Kudu as a deduping store.
+The Kudu output operator integrated with Apex allows for very low latency writes to a distributed kudu store at very high throughputs. For production deployments hosting SQL engines like Impala and using the Kudu store, Apex enables for a sub-second writes to Kudu as an SQL enabled store. Apex based low latency streaming applications thus remove the drawbacks of parquet styled batch write file patterns for query engines like Impala. The sub-second writes also provides for a new pattern wherein we could use Kudu as a deduping store.
 
 The following metrics were observed on a cluster setup and configured on a **single host**. The single host was running **all** of the stack outlined below
 
@@ -227,7 +227,7 @@ The following metrics were observed on a cluster setup and configured on a **sin
 - Confluent Kafka 3.2.1
 - Kudu 1.3
 
-The cluster was built on a single host using the approach outlined here : https://ananthc.github.io/setting-up-clusters-on-a-single-home-office-machine 
+The cluster was built on a single host using the approach outlined here : https://ananthc.github.io/setting-up-clusters-on-a-single-home-office-machine . The single host was built using an 8-core intel broadwell CPU , SSD hosting the data volumes and 128 GB RAM.  
 
 - Approx 1300 transactions per second distributed over two kudu tables from a single apex application
 - Average latency of 5 ms 
@@ -236,4 +236,6 @@ The single host running the **entire** stack and the test application shows the 
 ![alt text](https://github.com/ananthc/sampleapps/blob/master/apache-apex/SimplekuduoutputApp/src/test/resources/Running-application.png  "Running metrics Kudu output operator application")
 
 The Kudu output operator shows the following latencies 
+
+
 ![alt text](https://github.com/ananthc/sampleapps/blob/master/apache-apex/SimplekuduoutputApp/src/test/resources/Kudu-output-operator-metrics.png "Kudu output operator metrics")
