@@ -165,17 +165,16 @@ In this example, the class TransactionsTableKuduOutputOperator extends the BaseK
 Note that the above method is called at the maximum for a single window i.e. the window in which a crash might have occured and a subsequent restart of the application starts the operator in a  reconciling mode. The processing resumes to normal mode after this reconciling window from the subsequent window. We are thus using the logic in this method to check for duplicate writes to the table. Ideally this could have been solved using an "upsert" mutation type. But "upsert" mutation might not always work when there is a use case of another operator doing an "update" on the same row.
 
 ## Setting the timestamps for write resolution 
-Consider the use case wherein we are maintaning the last time a device was seen in the devices table.The table gives the last time stamp the device was seen. However there is a caveat that not all tuples arriving in the Kafka topic are time ordered. Hence there is a probability of erraneous timestamp showing in the devices table due out of sequence events. 
+Consider the use case wherein we want to maintain the causal relationship between updates. For example in the transactions table, consider the situation of upstream system doing transactions in bulk. The bulk transaction consists of a merchant settlement process wherein the bank is transferring some amount into the merchants account and correspondingly delete the amount from the credit card accounts of the merchants customers. Now if the transactions table needs to ensure that the merchant transaction needs to be visible first for all read queries and only then can only see individual credit card account updates. This requires a causal order to be maintained in the inserts in the transactions table. 
 
-Kudu output operator allows the client side timestamps to be propagated to the Kudu server where the mutation is executed. This allows for out of sequence data tuples to be ordered on the server side. The following snippet of code in the upstream operator shows how this can be done.
-
+Kudu output operator allows timestamps to be propagated to the Kudu server allowing for causal relationship to be maintained. The following snippet of code in the upstream operator shows how this can be done.
 ~~~java
     KuduExecutionContext<TransactionPayload> context = new KuduExecutionContext<>();
     context.setPayload(payload);
     context.setMutationType(KuduMutationType.UPSERT);
-    context.setPropagatedTimestamp(payload.getTimestamp());
+    context.setPropagatedTimestamp(<timestamp of the merchant transaction insert operation>);
 ~~~
-The last line as implemented in the upstream operator allows the timestamp to be propagated to the Kudu server. In this case, we are setting the timestamp as given in the incoming tuple from the Kafka topic.
+The last line as implemented in the upstream operator allows the timestamp to be propagated to the Kudu server allowing for the causal relationship to be maintained.
 
 ## Do not write columns for lock free implementations
 
@@ -238,5 +237,4 @@ Running it on proper hardware can easily achieve 5 ( or even 6) digit throughput
 - https://kudu.apache.org/2016/04/26/ycsb.html
 - https://docs.google.com/document/d/1U1IXS1XD2erZyq8_qG81A1gZaCeHcq2i0unea_eEf5c/ . 
 
-Perhaps a well designed throughput test on proper hardware that runs Apex and uses Kudu as the store deserves a separate post.  
-
+Perhaps a well designed throughput test on proper hardware that runs Apex and uses Kudu as the store deserves a separate post.
