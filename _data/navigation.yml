@@ -6,5 +6,15 @@ main:
     url: /tags/
   - title: "Posts by year"
     url: /year-archive
-  #- title: "Sitemap"
-  #  url: /sitemap/
+    
+tagssidebar:
+  - title: Data Engineering
+    children:
+      - title: "Apex"
+        url: "https://ananthc.github.io/tags/#Apex"
+      - title: "Spark"
+        url: ""
+      - title: "Hadoop"
+        url: "https://ananthc.github.io/tags/#Hadoop"
+      - title: "DSE Graph"
+        url: ""
