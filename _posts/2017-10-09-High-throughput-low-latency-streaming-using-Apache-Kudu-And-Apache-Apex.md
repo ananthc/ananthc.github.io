@@ -67,6 +67,7 @@ Kudu output operator uses the Kudu java driver to obtain the metadata of the Kud
 ### Selective column writes
 Kudu output operator also allows for only writing a subset of columns for a given Kudu table row. This optimization allows for writing select columns without performing a read of the current column thus allowing for higher throughput for writes.
 
+For example, in the device info table as part of the fraud processing application, we could choose to write only the "last seen" column and avoid a read of the entire row.
 ![Selective column writes]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-Output-Operator-selective-col-writes.png)
 
 
