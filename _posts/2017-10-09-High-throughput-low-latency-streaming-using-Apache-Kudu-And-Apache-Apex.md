@@ -64,6 +64,10 @@ The kudu outout operator allows for writes to happen to be defined at a tuple le
 ### Automatic mapping of POJO column names to Kudu table column names
 Kudu output operator uses the Kudu java driver to obtain the metadata of the Kudu table. By using the metadata API, Kudu output operator allows for automatic mapping of a POJO field name to the Kudu table column name. Of course this mapping can be manually overridden when creating a new instance of the Kudu output operator in the Apex application
 
+### Multiple table writes for a single tuple
+
+The Kudu output operator allows for writing to multiple tables as part of the Apex application. This can be achieved by creating an additional instance of the Kudu output operator and configuring it for the second Kudu table. For example, a simple JSON entry from the Apex Kafka Input operator can result in a row in both the transaction Kudu table and the device info Kudu table. 
+
 ### Selective column writes
 Kudu output operator also allows for only writing a subset of columns for a given Kudu table row. This optimization allows for writing select columns without performing a read of the current column thus allowing for higher throughput for writes.
 
