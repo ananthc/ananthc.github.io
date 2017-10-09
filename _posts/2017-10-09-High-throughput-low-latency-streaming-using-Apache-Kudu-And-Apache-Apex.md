@@ -15,7 +15,7 @@ gallery:
       /assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Sample-Kudu-Output-DAG-Application.png
     alt: Sample Apex DAG for Kudu output operator
 ---
-## Introduction
+# Introduction
 
 
 The last few years has seen HDFS as a great enabler that would help organizations store extremely large amounts of data on commodity hardware. However over the last couple of years the technology landscape changed rapidly and new age engines like Apache Spark, Apache Apex and Apache Flink have started enabling more powerful use cases on a distributed data store paradigm. This has quickly brought out the short-comings of an immutable data store. The primary short comings are
@@ -35,7 +35,7 @@ Apache Kudu is a next generation storage engine that comes with the following st
 
 This post explores the capabilties of [Apache Kudu](https://kudu.apache.org/) in conjunction with the Apex streaming engine. [Apache Apex](https://apex.apache.org/) is a low latency streaming engine which can run on top of YARN and provides many Enterprise grade features out of the box. The post describes the features using a hypothetical use case. The transactions that are processed by a streaming engine need to be written to a data store and subsequently avaiable for a read pattern. The caveat is that the write path needs to be completed in sub-second time windows and read paths should be available within sub-second time frames once the data is written.
 
-## Apex integration
+# Apex integration
 Apache Apex integration with Apache Kudu is released as part of the [Apache Malhar](https://apex.apache.org/docs/malhar/) library. Apache Malhar is a library of operators that are compatible with Apache Apex. Kudu integration in Apex is available from the 3.8.0 release of Apache Malhar library. 
 
 An Apex Operator ( A JVM instance that makes up the Streaming DAG application ) is a logical unit that provides a specific piece of functionality. In the case of Kudu integration, Apex provided for two types of operators  
@@ -43,9 +43,9 @@ An Apex Operator ( A JVM instance that makes up the Streaming DAG application ) 
 - A write path is implemented by the Kudu Output operator 
 - A read path is implemented by the Kudu Input Operator.
 
-Apex uses the 1.5.0 version of the java client driver of Kudu.
+Apex uses the 1.5.0 version of the java client driver of Kudu. A sample representation of the DAG can be depicted as follows:
 
-
+![Apex DAG for Kudu output operator]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Sample-Kudu-Output-DAG-Application.png)
 
 # Write paths
 
@@ -57,8 +57,6 @@ The kudu outout operator allows for writes to happen to be defined at a tuple le
 - Update
 - Upsert
 - Delete
-
-![Apex DAG for Kudu output operator]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Sample-Kudu-Output-DAG-Application.png)
 
 
 #### Automatic mapping of POJO column names to Kudu table column names
@@ -85,5 +83,9 @@ Kudu output operator allows for a setting a timestamp for every write to the Kud
 #### Metrics
 Kudu output operator utilizes the metrics as provided by the java driver for Kudu table. Some of the example metrics that are exposed by the kudu output operator are bytes written, RPC errors, write operations. There are other metrics that are exposed at the application level like number of inserts, deletes , upserts and updates. Note that these metrics are exposed via the REST API both at a single operator level and also at the application level (sum across all the operator instances)
 
-## Read paths
+# Read paths
+Apex Kudu integration also provides the functionality of reading from a Kudu table and streaming one row of the table as one POJO to the downstream operators. The read operation is performed by instances of the Kudu Input operator ( An operator that can provide input the Apex application). The following use cases are supported by the Kudu Input operator in Apex.
+
+#### SQL driven scans
+The Kudu input operator can consume a string which represents a SQL expression and scan the Kudu table accordingly. The SQL expression is not strictly aligned to ANSI-SQL as not all of the SQL expressions are supported by Kudu as a SQL 
 
