@@ -26,5 +26,5 @@ Apache Kudu is a next generation storage engine that comes with the following st
 - Bulk scan patterns possible 
 - Predicate push downs when scanning
 
-This post explores the capabilties of Apache Kudu in conjunction with the Apex streaming engine. Apache [Apex](https://apex.apache.org/) is a low latency streaming engine which can run on top of YARN and provides many Enterprise grade features out of the box.
+This post explores the capabilties of [Apache Kudu] (https://kudu.apache.org/) in conjunction with the Apex streaming engine. [Apache Apex](https://apex.apache.org/) is a low latency streaming engine which can run on top of YARN and provides many Enterprise grade features out of the box.
 
