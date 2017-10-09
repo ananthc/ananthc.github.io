@@ -74,8 +74,9 @@ Kudu output operator also allows for only writing a subset of columns for a give
 For example, in the device info table as part of the fraud processing application, we could choose to write only the "last seen" column and avoid a read of the entire row.
 ![Selective column writes]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-Output-Operator-selective-col-writes.png)
 
+### End to end exactly once semantics
 
-
+Kudu output operator allows for end to end exactly once processing. Since Kudu does not yet support bulk operations as a single transaction, Apex achieves end ot end exactly once using the windowing semantics of Apex. Apex Kudu output operator checkpoints its state at regular time intervals (configurable) and this allows for bypassing duplicate transactions beyond a certain window. For the case of detecting duplicates ( after resumption from an application crash), Kudu output operator invokes a call back provided by the application developer so that business logic dictates the detection of duplicates. The business logic can onvole inspecting the given row in Kudu table to see if this is already written. Note that this business logic is only invoked for the application window that comes first after the resumption from a previous application shutdown or crash.
 
 ## Read paths
 
