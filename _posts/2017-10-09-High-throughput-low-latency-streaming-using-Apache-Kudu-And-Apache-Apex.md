@@ -31,4 +31,5 @@ This post explores the capabilties of [Apache Kudu](https://kudu.apache.org/) in
 ## Write paths
 
 
+## Read paths
 
