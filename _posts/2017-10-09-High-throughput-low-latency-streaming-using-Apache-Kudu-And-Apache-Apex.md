@@ -36,9 +36,9 @@ Apache Kudu is a next generation storage engine that comes with the following st
 This post explores the capabilties of [Apache Kudu](https://kudu.apache.org/) in conjunction with the Apex streaming engine. [Apache Apex](https://apex.apache.org/) is a low latency streaming engine which can run on top of YARN and provides many Enterprise grade features out of the box. The post describes the features using a hypothetical use case. The transactions that are processed by a streaming engine need to be written to a data store and subsequently avaiable for a read pattern. The caveat is that the write path needs to be completed in sub-second time windows and read paths should be available within sub-second time frames once the data is written.
 
 ## Apex integration
-Apache Apex integration with Apache Kudu is released as part of the [Apache Malhar](https://apex.apache.org/docs/malhar/) library. Apache Malhar is a library of operators that are compatible with Apache Apex. This integration is available from the 3.8.0 release of Apache Malhar library. 
+Apache Apex integration with Apache Kudu is released as part of the [Apache Malhar](https://apex.apache.org/docs/malhar/) library. Apache Malhar is a library of operators that are compatible with Apache Apex. Kudu integration in Apex is available from the 3.8.0 release of Apache Malhar library. 
 
-Apache Apex integration with Apache Kudu is implemented for two major use cases. An apex Operator ( A JVM instance that makes up the Streaming DAG application ) is a logical unit that provides a specific piece of functionality. In the case of Kudu integration, Apex provided for two types of operators  
+An Apex Operator ( A JVM instance that makes up the Streaming DAG application ) is a logical unit that provides a specific piece of functionality. In the case of Kudu integration, Apex provided for two types of operators  
 
 - A write path is implemented by the Kudu Output operator 
 - A read path is implemented by the Kudu Input Operator.
