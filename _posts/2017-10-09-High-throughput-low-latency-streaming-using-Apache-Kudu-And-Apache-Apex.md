@@ -137,3 +137,4 @@ The feature set offered by the Kudu client drivers help in implementing very ric
 - As an alternative to Kafka log stores wherein requirements arise for selective streaming as opposed to log based streaming for downstream consumers of information feeds
 - Simplification of ETL pipelines in an Enterprise and thus concentrate on more higher value data processing needs.
 
+Kudu integration with Apex was presented in Dataworks Summit Sydney 2017. A copy of the slides can be accessed from [here](https://www.slideshare.net/Hadoop_Summit/low-latency-high-throughput-streaming-using-apache-apex-and-apache-kudu) 
