@@ -122,7 +122,9 @@ Kudu input operator allows users to specify a stream of SQL queries. Each operat
 ![Kudu tablet scan ordering]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-Custom-Tuples.png)
 
 
-
-
 #### Time travelling in Kudu
+Another interesting feature of the Kudu storage engine is that it is an MVCC engine for data!!. This essentially means that data mutations are being versioned within Kudu engine. This allows for some very interesting feature set provided of course if Kudu engine is configured for requisite versions. If the kudu client driver sets the read snapshot time while intiating a scan , Kudu engine serves the version of the data at that point in time. Kudu input operator allows for time travel reads by allowing an "using options" clause. One of the options that is supported as part of the SQL expression is the "READ_SNAPSHOT_TIME". By specifying the read snapshot time, Kudu Input operator can perform time travel reads as well. An example SQL expression making use of the read snapshot time is given below.
 
+```SQL
+select col1,col2 from kudutable where col3 > 345 using options READ_SNAPSHOT_TIME=1507601194
+```
