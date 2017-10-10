@@ -109,7 +109,7 @@ Kudu client driver provides for a mechanism wherein the client thread can monito
 ![Kudu fault tolerant scans]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-Fault-Tolerance.png)
 
 ### Scan order
-Kudu input operator allows for a configuration switch that allows for two types of ordering. The ordering refers a guarantee that the order of tuples processed as a stream is same across application restarts and crashes. This feature allows for implementing end to end exactly once processing semantics in an Apex appliaction. There are two types of ordering available as part of the Kudu Input operator.
+Kudu input operator allows for a configuration switch that allows for two types of ordering. The ordering refers to a guarantee that the order of tuples processed as a stream is same across application restarts and crashes provided Kudu table itself did not mutate in the mean time. This feature allows for implementing end to end exactly once processing semantics in an Apex appliaction. There are two types of ordering available as part of the Kudu Input operator.
 
 - Consistent ordering : This mode automatically uses a fault tolerant scanner approach while reading from Kudu tablets. This also means that consistent ordering results in lower throughput as compared to the random order scanning
 - Random ordering : This mode optimizes for throughput and might result in complex implementations if exactly once semantics are to be achieved in the downstream operators of a DAG. 
