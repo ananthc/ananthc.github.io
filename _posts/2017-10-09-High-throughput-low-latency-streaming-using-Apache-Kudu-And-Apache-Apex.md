@@ -105,7 +105,7 @@ This can be depicted in the following way.
 ![Kudu to Apex partition mapping styles]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-Input-operator-mapping.png)
 
 #### Kudu high availability
-Kudu client driver provides for a mechanism wherein the client thread can monitor tablet liveness and choose to scan the remaining scan operations from a highly available replica. Opting for a fault tolerancy on the kudu client thread results in a lower throughput. Hence this is provided as a configuration switch in the Kudu input operator. Kudu fault tolerant scans can be depicted as follows:
+Kudu client driver provides for a mechanism wherein the client thread can monitor tablet liveness and choose to scan the remaining scan operations from a highly available replica. Opting for a fault tolerancy on the kudu client thread results in a lower throughput. Hence this is provided as a configuration switch in the Kudu input operator. Kudu fault tolerant scans can be depicted as follows ( Blue tablet portions represent the replicas ):
 ![Kudu fault tolerant scans]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-Fault-Tolerance.png)
 
 
