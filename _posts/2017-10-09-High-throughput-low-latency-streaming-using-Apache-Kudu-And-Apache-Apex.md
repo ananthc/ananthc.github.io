@@ -128,3 +128,12 @@ Another interesting feature of the Kudu storage engine is that it is an MVCC eng
 ```SQL
 select col1,col2 from kudutable where col3 > 345 using options READ_SNAPSHOT_TIME=1507601194
 ```
+
+# Conclusion
+The feature set offered by the Kudu client drivers help in implementing very rich data processing patterns in new stream processing engines. The feature set of Kudu will thus enable some very strong use cases in years to come for:
+
+- SQL on hadoop engines like Impala to use it as a mutable store and rapidly simplify ETL pipelines and data serving capabilties in sub-second processing times both for ingest and serve.
+- Streaming engines able to perform SQL processing as a high level API and also a bulk scan patterns
+- As an alternative to Kafka log stores wherein requirements arise for selective streaming as opposed to log based streaming for downstream consumers of information feeds
+- Simplification of ETL pipelines in an Enterprise and thus concentrate on more higher value data processing needs.
+
