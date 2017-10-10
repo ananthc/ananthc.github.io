@@ -130,11 +130,11 @@ select col1,col2 from kudutable where col3 > 345 using options READ_SNAPSHOT_TIM
 ```
 
 # Conclusion
-The feature set offered by the Kudu client drivers help in implementing very rich data processing patterns in new stream processing engines. The feature set of Kudu will thus enable some very strong use cases in years to come for:
+Thus the feature set offered by the Kudu client drivers help in implementing very rich data processing patterns in new stream processing engines. The feature set of Kudu will thus enable some very strong use cases in years to come for:
 
 - SQL on hadoop engines like Impala to use it as a mutable store and rapidly simplify ETL pipelines and data serving capabilties in sub-second processing times both for ingest and serve.
 - Streaming engines able to perform SQL processing as a high level API and also a bulk scan patterns
-- As an alternative to Kafka log stores wherein requirements arise for selective streaming as opposed to log based streaming for downstream consumers of information feeds
+- As an alternative to Kafka log stores wherein requirements arise for selective streaming ( ex: SQL expression based streaming )  as opposed to log based streaming for downstream consumers of information feeds
 - Simplification of ETL pipelines in an Enterprise and thus concentrate on more higher value data processing needs.
 
 Kudu integration with Apex was presented in Dataworks Summit Sydney 2017. A copy of the slides can be accessed from [here](https://www.slideshare.net/Hadoop_Summit/low-latency-high-throughput-streaming-using-apache-apex-and-apache-kudu) 
