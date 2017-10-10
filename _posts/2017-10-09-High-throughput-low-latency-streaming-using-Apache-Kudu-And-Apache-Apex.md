@@ -93,4 +93,8 @@ The Kudu input operator can consume a string which represents a SQL expression a
 The Kudu input operator heavily uses the features provided by the Kudu client drivers to plan and execute the SQL expression as a distributed processing query. At the launch of the Kudu Input operator JVM, all the physical instances of the Kudu Input Operator agree mutually to share a part of the Kudu partitions space. This is transparent to the end user who is providing the stream of SQL expressions that need to be sent to the downstream operators.
 
 
+#### High throughput read scans
+Since Kudu is highly optimized scan engine, the Apex Kudu input operator tries to maximize the throughput between a scan thread that is reading from the Kudu partition and the buffer that is being consumed by the Apex engien to stream the rows downstream. The Kudu input operator makes use of the Disruptor queue pattern to achieve this thorughput. 
 
+#### Partition mapping
+Kudu allows for a partitioning construct to optimize on the distributed and high availability patterns that are required for a modern storage engine.
