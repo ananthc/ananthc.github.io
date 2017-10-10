@@ -87,5 +87,10 @@ Kudu output operator utilizes the metrics as provided by the java driver for Kud
 Apex Kudu integration also provides the functionality of reading from a Kudu table and streaming one row of the table as one POJO to the downstream operators. The read operation is performed by instances of the Kudu Input operator ( An operator that can provide input the Apex application). The following use cases are supported by the Kudu Input operator in Apex.
 
 #### SQL driven scans
-The Kudu input operator can consume a string which represents a SQL expression and scan the Kudu table accordingly. The SQL expression is not strictly aligned to ANSI-SQL as not all of the SQL expressions are supported by Kudu as a SQL 
+The Kudu input operator can consume a string which represents a SQL expression and scan the Kudu table accordingly. The SQL expression is not strictly aligned to ANSI-SQL as not all of the SQL expressions are supported by Kudu as a SQL. However the SQL is intuitive enough and closely mimics the SQL standards. The SQL expression should be compliant with the ANTLR4 grammar as given [here](https://github.com/apache/apex-malhar/blob/master/kudu/src/main/antlr4/org/apache/apex/malhar/kudu/sqlparser/KuduSQLExpression.g4)
+
+#### Distributed scans
+The Kudu input operator heavily uses the features provided by the Kudu client drivers to plan and execute the SQL expression as a distributed processing query. At the launch of the Kudu Input operator JVM, all the physical instances of the Kudu Input Operator agree mutually to share a part of the Kudu partitions space. This is transparent to the end user who is providing the stream of SQL expressions that need to be sent to the downstream operators.
+
+
 
