@@ -97,7 +97,7 @@ The Kudu input operator heavily uses the features provided by the Kudu client dr
 Since Kudu is a highly optimized scanning engine, the Apex Kudu input operator tries to maximize the throughput between a scan thread that is reading from the Kudu partition and the buffer that is being consumed by the Apex engien to stream the rows downstream. The Kudu input operator makes use of the Disruptor queue pattern to achieve this throughput. 
 
 ### Partition mapping
-Kudu allows for a partitioning construct to optimize on the distributed and high availability patterns that are required for a modern storage engine. Apex allows for a partitioning construct using which stream processing can be partitioned. Kudu input operator allows for mapping Kudu partitions to Apex partitions using a configuration switch. While Kudu partition count is generally decided at the time of table definition time, Apex partition count can be specified either at application launch time or at run time using the Apex client. Kudu input operator allows for two types of partition mapping from Kudu to Apex. 
+Kudu allows for a partitioning construct to optimize on the distributed and high availability patterns that are required for a modern storage engine. Apex also allows for a partitioning construct using which stream processing can also be partitioned. Kudu input operator allows for mapping Kudu partitions to Apex partitions using a configuration switch. While Kudu partition count is generally decided at the time of Kudu table definition time, Apex partition count can be specified either at application launch time or at run time using the Apex client. Kudu input operator allows for two types of partition mapping from Kudu to Apex. 
 - One to One mapping ( maps one Kudu tablet to one Apex partition )
 - Many to One mapping ( maps multiple Kudu tablets to one Apex partition )
 
@@ -105,7 +105,7 @@ This can be depicted in the following way.
 ![Kudu to Apex partition mapping styles]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-Input-operator-mapping.png)
 
 ### Kudu high availability
-Kudu client driver provides for a mechanism wherein the client thread can monitor tablet liveness and choose to scan the remaining scan operations from a highly available replica. Opting for a fault tolerancy on the kudu client thread results in a lower throughput. Hence this is provided as a configuration switch in the Kudu input operator. Kudu fault tolerant scans can be depicted as follows ( Blue tablet portions represent the replicas ):
+Kudu client driver provides for a mechanism wherein the client thread can monitor tablet liveness and choose to scan the remaining scan operations from a highly available replica in case there is a fault with the primary replica. Opting for a fault tolerancy on the kudu client thread however results in a lower throughput. Hence this is provided as a configuration switch in the Kudu input operator. Kudu fault tolerant scans can be depicted as follows ( Blue tablet portions represent the replicas ):
 ![Kudu fault tolerant scans]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-Fault-Tolerance.png)
 
 ### Scan order
