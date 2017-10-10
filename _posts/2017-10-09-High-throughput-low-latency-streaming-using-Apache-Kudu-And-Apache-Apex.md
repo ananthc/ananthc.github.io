@@ -96,7 +96,7 @@ The Kudu input operator heavily uses the features provided by the Kudu client dr
 #### High throughput read scans
 Since Kudu is highly optimized scan engine, the Apex Kudu input operator tries to maximize the throughput between a scan thread that is reading from the Kudu partition and the buffer that is being consumed by the Apex engien to stream the rows downstream. The Kudu input operator makes use of the Disruptor queue pattern to achieve this thorughput. 
 
-#### Partition mapping
+### Partition mapping
 Kudu allows for a partitioning construct to optimize on the distributed and high availability patterns that are required for a modern storage engine. Apex allows for a partitioning construct using which stream processing can be partitioned. Kudu input operator allows for mapping Kudu partitions to Apex partitions using a configuration switch. While Kudu partition count is generally decided at the time of table definition time, Apex partition count can be specified either at application launch time or at run time using the Apex client. Kudu input operator allows for two types of partition mapping from Kudu to Apex. 
 - One to One mapping ( maps one Kudu tablet to one Apex partition )
 - Many to One mapping ( maps multiple Kudu tablets to one Apex partition )
@@ -104,11 +104,11 @@ Kudu allows for a partitioning construct to optimize on the distributed and high
 This can be depicted in the following way.
 ![Kudu to Apex partition mapping styles]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-Input-operator-mapping.png)
 
-#### Kudu high availability
+### Kudu high availability
 Kudu client driver provides for a mechanism wherein the client thread can monitor tablet liveness and choose to scan the remaining scan operations from a highly available replica. Opting for a fault tolerancy on the kudu client thread results in a lower throughput. Hence this is provided as a configuration switch in the Kudu input operator. Kudu fault tolerant scans can be depicted as follows ( Blue tablet portions represent the replicas ):
 ![Kudu fault tolerant scans]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-Fault-Tolerance.png)
 
-#### Scan order
+### Scan order
 Kudu input operator allows for a configuration switch that allows for two types of ordering. The ordering refers a guarantee that the order of tuples processed as a stream is same across application restarts and crashes. This feature allows for implementing end to end exactly once processing semantics in an Apex appliaction. There are two types of ordering available as part of the Kudu Input operator.
 
 - Consistent ordering : This mode automatically uses a fault tolerant scanner approach while reading from Kudu tablets. This also means that consistent ordering results in lower throughput as compared to the random order scanning
@@ -117,12 +117,12 @@ Kudu input operator allows for a configuration switch that allows for two types 
 The scan orders can be depicted as follows:
 ![Kudu tablet scan ordering]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-scan-order.png)
 
-#### Control tuples
+### Control tuples
 Kudu input operator allows users to specify a stream of SQL queries. Each operator processes the stream queries independent of the other instances of the operator. This essentially implies that it is possible that at any given instant of time, there might be more than one query that is being processed in the DAG. To allow for the down stream operators to detect the end of an SQL expression processing and the beginning of the next SQL expression, Kudu input operator can optionally send custom control tuples to the downstream operators. The SQL expression supplied to the Kudu input oerator allows a string message to be sent as a control tuple message payload. The user can extend the base control tuple message class if more functionality is needed from the control tuple message. The control tuple can be depicted as follows in a stream of tuples. In the pictorial representation below, the Kudu input operator is streaming an end query control tuple denoted by EQ , then followed by a begin query denoted by BQ. These control tuples are then being used by a downstream operator say for example to use another model for the second query data set. 
 ![Kudu tablet scan ordering]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-input-operator-Custom-Tuples.png)
 
 
-#### Time travelling in Kudu
+### Time travelling in Kudu
 Another interesting feature of the Kudu storage engine is that it is an MVCC engine for data!!. This essentially means that data mutations are being versioned within Kudu engine. This allows for some very interesting feature set provided of course if Kudu engine is configured for requisite versions. If the kudu client driver sets the read snapshot time while intiating a scan , Kudu engine serves the version of the data at that point in time. Kudu input operator allows for time travel reads by allowing an "using options" clause. One of the options that is supported as part of the SQL expression is the "READ_SNAPSHOT_TIME". By specifying the read snapshot time, Kudu Input operator can perform time travel reads as well. An example SQL expression making use of the read snapshot time is given below.
 
 ```SQL
