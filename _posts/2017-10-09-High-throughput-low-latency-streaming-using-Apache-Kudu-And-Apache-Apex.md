@@ -97,4 +97,11 @@ The Kudu input operator heavily uses the features provided by the Kudu client dr
 Since Kudu is highly optimized scan engine, the Apex Kudu input operator tries to maximize the throughput between a scan thread that is reading from the Kudu partition and the buffer that is being consumed by the Apex engien to stream the rows downstream. The Kudu input operator makes use of the Disruptor queue pattern to achieve this thorughput. 
 
 #### Partition mapping
-Kudu allows for a partitioning construct to optimize on the distributed and high availability patterns that are required for a modern storage engine.
+Kudu allows for a partitioning construct to optimize on the distributed and high availability patterns that are required for a modern storage engine. Apex allows for a partitioning construct using which stream processing can be partitioned. Kudu input operator allows for mapping Kudu partitions to Apex partitions using a configuration switch. While Kudu partition count is generally decided at the time of table definition time, Apex partition count can be specified either at application launch time or at run time using the Apex client. Kudu input operator allows for two types of partition mapping from Kudu to Apex. 
+- One to One mapping ( maps one Kudu tablet to one Apex partition )
+- Many to One mapping ( maps multiple Kudu tablets to one Apex partition )
+
+This can be depicted in the following way.
+![Kudu to Apex partition mapping styles]({{site.baseurl}}/assets/images/high-throughput-low-latency-streaming-using-kudu-apex/Kudu-Input-operator-mapping.png)
+
+
